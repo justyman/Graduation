@@ -4,42 +4,45 @@
     <head>
         <meta charset="utf-8"/>
 
-        <title>Login</title>
+        <title>广州银行</title>
         <link rel="stylesheet" href="css/loginStyle.css"/>
+        <link rel="icon" href="favicon.ico"/>
         <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="js/login.js"></script>
     </head>
 
-    <body style="margin-top: 300px">
+    <body>
         <!-- 用户登陆模块 -->
-        <section class="container" id="loginModule">
+        <section class="container" style="margin-top: 300px" id="loginModule">
             <div class="login">
-                <h1>Login to Web</h1>
+                <h1>用户登录</h1>
                 <form method="post" action="index.html">
-                    <p><input type="text" name="login" value="" placeholder="Username"></p>
-                    <p><input type="password" name="password" value="" placeholder="Password"></p>
-                    <p class="submit"><input type="submit" name="commit" value="Login"></p>
+                    <p><input type="text" name="login" value="" placeholder="用户名"></p>
+                    <p><input type="password" name="password" value="" placeholder="密码"></p>
+                    <p class="submit"><input type="submit" name="commit" value="登录"></p>
                 </form>
             </div>
 
             <div class="login-help">
-                <p>Forgot your password? <a onclick="reset()">Click here to reset it</a>.</p>
+                <p>忘记了您的密码？ <a onclick="reset()">点击申请重置密码</a>.</p>
             </div>
         </section>
 
         <!-- 重置密码模块 -->
-        <section class="container" id="resetModule">
+        <section class="container" style="margin-top: 250px" id="resetModule">
             <div class="login">
-                <h1>Apply to Reset Your Password</h1>
+                <h1>重置密码</h1>
                 <form method="post" action="index.html">
-                    <p><input type="text" name="login" value="" placeholder="Username"></p>
-                    <p><input type="password" name="password" value="" placeholder="Password"></p>
-                    <p class="submit"><input type="submit" name="commit" value="Apply"></p>
+                    <p><input type="text" name="login" value="" placeholder="用户名"></p>
+                    <p><input type="password" name="resetPassword" value="" placeholder="重置密码"></p>
+                    <p><input type="password" name="confirmPassword" value="" placeholder="确认密码"></p>
+                    <p><input type="text" name="reason" value="" placeholder="请输入您申请重置密码的原因"></p>
+                    <p class="submit"><input type="submit" name="commit" value="提交"></p>
                 </form>
             </div>
 
             <div class="login-help">
-                <p>Want to login? <a onclick="login()">Click here to login</a>.</p>
+                <p>直接登陆？ <a onclick="login()">点击进入用户登陆</a>.</p>
             </div>
         </section>
     </body>
