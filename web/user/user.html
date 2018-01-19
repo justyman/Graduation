@@ -5,11 +5,82 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>广州银行</title>
-    <link rel="icon" href="/favicon.ico"/>
+    <title>ZL</title>
+    <!--<link rel="icon" href="../favicon.ico"/>-->
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/simple-line-icons.css"/>
+    <link rel="stylesheet" href="../css/animate.min.css"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <!-- JS -->
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jquery.ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/moment.min.js"></script>
+    <script src="../js/jquery.flot.min.js"></script>
+    <script src="../js/jquery.flot.pie.min.js"></script>
+    <script src="../js/jquery.flot.time.min.js"></script>
+    <script src="../js/jquery.flot.navigate.min.js"></script>
+    <script src="../js/jquery.flot.stack.min.js"></script>
+    <script src="../js/jquery.nicescroll.js"></script>
+    <script src="../js/main.js"></script>
 </head>
 
 <body>
+<!-- 顶部边栏 -->
+<nav class="navbar navbar-default header navbar-fixed-top">
+    <div class="col-md-12 nav-wrapper">
+        <div class="navbar-header" style="width:100%;">
+            <div class="opener-left-menu is-open">
+                <span class="top"></span>
+                <span class="middle"></span>
+                <span class="bottom"></span>
+            </div>
+            <!-- 网页主题 -->
+            <a href="../user/user.html" class="navbar-brand">
+                <b>ZL</b>
+            </a>
 
+            <!-- 搜索栏 -->
+            <ul class="nav navbar-nav search-nav">
+                <li>
+                    <div class="search">
+                        <div class="form-group form-animate-text">
+                            <input type="text" class="form-text" required>
+                            <span class="bar"></span>
+                            <label class="label-search">Type here to <b>Search</b> </label>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <!-- 用户信息 -->
+            <ul class="nav navbar-nav navbar-right user-nav">
+                <li class="user-name"><span>Kyrie Irving</span></li>
+                <li class="dropdown avatar-dropdown">
+                    <!-- 头像 -->
+                    <img src="../images/test.jpg" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- 左侧边栏 -->
+<div class="container-fluid mimin-wrapper">
+    <div id="left-menu">
+        <div class="sub-left-menu scroll">
+            <ul class="nav nav-list">
+                <li><div class="left-bg"></div></li>
+                <li class="time">
+                    <h1 class="animated fadeInLeft">21:00</h1>
+                    <p class="animated fadeInRight">Sat,October 1st 2029</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- end: Left Menu -->
+</div>
 </body>
 </html>

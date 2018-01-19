@@ -5,12 +5,12 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>广州银行</title>
-    <link rel="icon" href="favicon.ico"/>
+    <title>ZL</title>
+    <!--<link rel="icon" href="favicon.ico"/>-->
     <!-- CSS -->
     <link rel="stylesheet" href="css/loginStyle.css"/>
     <!-- JS -->
-    <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/login.js"></script>
 </head>
 
@@ -18,8 +18,8 @@
 <!-- 用户登陆模块 -->
 <section class="container" style="margin-top: 300px" id="loginModule">
     <div class="login">
-        <h1>用户登录</h1>
-        <form method="post" action="/user/user.html">
+        <h1 style="cursor:default">用户登录</h1>
+        <form method="post" action="user/user.html">
             <p><input type="text" name="login" value="" placeholder="用户名"></p>
             <p><input type="password" name="password" value="" placeholder="密码"></p>
             <p class="submit"><input type="submit" name="commit" value="登录"></p>
@@ -27,14 +27,14 @@
     </div>
 
     <div class="login-help">
-        <p>忘记了您的密码？ <a onclick="reset()">点击申请重置密码</a>.</p>
+        <p style="cursor:default">忘记了您的密码？ <a onclick="reset()" style="cursor:pointer">点击申请重置密码</a>.</p>
     </div>
 </section>
 
 <!-- 重置密码模块 -->
 <section class="container" style="margin-top: 250px" id="resetModule">
     <div class="login">
-        <h1>重置密码</h1>
+        <h1 style="cursor:default">重置密码</h1>
         <form method="post" action="index.html">
             <p><input type="text" name="login" value="" placeholder="用户名"></p>
             <p><input type="password" name="resetPassword" value="" placeholder="重置密码"></p>
@@ -45,7 +45,7 @@
     </div>
 
     <div class="login-help">
-        <p>直接登陆？ <a onclick="login()">点击进入用户登陆</a>.</p>
+        <p style="cursor:default">直接登陆？ <a onclick="login()" style="cursor:pointer">点击进入用户登陆</a>.</p>
     </div>
 </section>
 </body>
