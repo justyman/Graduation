@@ -74,7 +74,7 @@
         </dependency>
         <!-- mybatis end -->
 
-        <!-- shiro start -->
+        <!-- cn.zl.shiro start -->
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-core</artifactId>
@@ -87,10 +87,15 @@
         </dependency>
         <dependency>
             <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-ehcache</artifactId>
+            <version>${org.shiro.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring</artifactId>
             <version>${org.shiro.version}</version>
         </dependency>
-        <!-- shiro end -->
+        <!-- cn.zl.shiro end -->
 
         <!-- servlet start -->
         <dependency>

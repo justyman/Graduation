@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- 配置文件描述 -->
+    <description>Shiro Configuration</description>
+
+    <!-- 默认安全管理 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="dbRealm"/>
+    </bean>
+
+    <!-- 自定义的Realm -->
+    <bean id="dbRealm" class="cn.zl.shiro.ShiroDbRealm">
+        <property name="cachingEnabled" value="true"/>
+        <property name="authorizationCacheName" value="authorizationCache"/>
+        <property name="authorizationCachingEnabled" value="true"/>
+        <property name="cacheManager" ref="cacheManager"/>
+    </bean>
+
+    <!-- shiro拦截器配置 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/login.do"/>
+        <property name="successUrl" value="/user.do"/>
+        <!-- 自定义filter配置 -->
+        <property name="filterChainDefinitions">
+            <value>
+                /css/** = anon
+                /js/** = anon
+                /images/** = anon
+                /login.do = anon
+                /favicon.ico = anon
+            </value>
+        </property>
+    </bean>
+
+    <!-- 缓存管理 -->
+    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
+    </bean>
+</beans>
