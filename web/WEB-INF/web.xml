@@ -9,14 +9,14 @@
         <param-value>classpath:spring-context.xml</param-value>
     </context-param>
 
-    <!-- java.beans.Introspector防止发生内存泄露 -->
-    <listener>
-        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
-    </listener>
-
     <!-- 对spring开始监听 -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!-- java.beans.Introspector防止发生内存泄露 -->
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
     </listener>
 
     <!-- Spring编码过滤器 -->
@@ -43,7 +43,7 @@
     </listener>
     <context-param>
         <param-name>shiroEnvironmentClass</param-name>
-        <param-value>org.apache.cn.zl.shiro.web.env.IniWebEnvironment</param-value>
+        <param-value>org.apache.shiro.web.env.IniWebEnvironment</param-value>
     </context-param>
 
     <!-- Shiro 拦截器 -->
@@ -68,6 +68,6 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>springServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>*.do</url-pattern>
     </servlet-mapping>
 </web-app>

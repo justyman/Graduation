@@ -5,11 +5,18 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <import resource="spring-shiro.xml"/>
-
     <!-- 开启包扫描 -->
     <context:component-scan base-package="cn.zl"/>
 
     <!-- 开启注解 -->
     <mvc:annotation-driven/>
+
+    <!-- 引入配置文件 -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:data.properties" />
+    </bean>
+
+    <import resource="spring-shiro.xml"/>
+    <import resource="spring-mybatis.xml"/>
+    <import resource="spring-mvc.xml"/>
 </beans>

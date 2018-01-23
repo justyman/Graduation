@@ -15,7 +15,7 @@
         <property name="cachingEnabled" value="true"/>
         <property name="authorizationCacheName" value="authorizationCache"/>
         <property name="authorizationCachingEnabled" value="true"/>
-        <property name="cacheManager" ref="cacheManager"/>
+        <!--<property name="cacheManager" ref="cacheManager"/>-->
     </bean>
 
     <!-- shiro拦截器配置 -->
@@ -36,7 +36,7 @@
     </bean>
 
     <!-- 缓存管理 -->
-    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+    <!--<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
         <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
-    </bean>
+    </bean>-->
 </beans>
