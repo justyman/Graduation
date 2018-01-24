@@ -1,8 +1,8 @@
 package cn.zl.controller;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
+import cn.zl.po.Staff;
+import cn.zl.service.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,11 +17,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class LoginController {
+    @Autowired
+    private User user;
+
     @RequestMapping("/login")
     public ModelAndView login(String username, String password){
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-        Subject subject = SecurityUtils.getSubject();
-
-        return new ModelAndView("user");
+        Staff staff = user.getUser(username);
+        if(staff == null){
+            return null;
+        }
+        if(staff.getPassword().equals(password)){
+            return new ModelAndView("user");
+        }
+        return null;
     }
 }
