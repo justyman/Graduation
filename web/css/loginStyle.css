@@ -98,13 +98,6 @@ table {
   margin: 0 -1px;
 }
 
-/*
- * Copyright (c) 2012-2013 Thibaut Courouble
- * http://www.cssflow.com
- *
- * Licensed under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- */
 body {
   font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
   color: #404040;
@@ -112,8 +105,12 @@ body {
 }
 
 .container {
-  margin: 80px auto;
   width: 640px;
+  position: absolute;      /*绝对定位*/
+  top: 50%;                  /* 距顶部50%*/
+  left: 50%;                  /* 距左边50%*/
+  margin-top: -150px;   /*margin-top为height一半的负值*/
+  margin-left: -320px;    /*margin-left为width一半的负值*/
 }
 
 .login {
