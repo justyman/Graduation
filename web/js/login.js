@@ -20,3 +20,10 @@ function login(){
     $("#resetModule").hide(500);
     $("#loginModule").show(1000);
 }
+
+/**
+ * 登陆验证
+ */
+function submit(){
+    $("#loginForm").submit();
+}
