@@ -12,10 +12,16 @@
 
     <!-- 自定义的Realm -->
     <bean id="dbRealm" class="cn.zl.shiro.ShiroDbRealm">
-        <property name="cachingEnabled" value="true"/>
-        <property name="authorizationCacheName" value="authorizationCache"/>
-        <property name="authorizationCachingEnabled" value="true"/>
         <!--<property name="cacheManager" ref="cacheManager"/>-->
+    </bean>
+
+    <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <!-- 开启Shiro注解 -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+            <property name="securityManager" ref="securityManager"/>
     </bean>
 
     <!-- shiro拦截器配置 -->
