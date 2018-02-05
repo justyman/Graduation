@@ -114,8 +114,8 @@ CREATE TABLE `credit_card`.`db_card` (
   COMMENT '账单日',
   `money`  DECIMAL(12, 2) NOT NULL
   COMMENT '当前余额',
-  `status` INT(1)         NOT NULL DEFAULT 0
-  COMMENT '信用卡状态',
+  `status` INT(2)         NOT NULL DEFAULT 0
+  COMMENT '信用卡状态 0:正常 1:冻结 -1:注销',
   PRIMARY KEY (`card`),
   UNIQUE INDEX `UNIQUE` (`id`),
   FOREIGN KEY (`id`) REFERENCES `credit_card`.`db_customer` (`id`)
