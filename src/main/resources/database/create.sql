@@ -36,3 +36,27 @@ CREATE TABLE `credit_card`.`db_position` (
 )
   ENGINE = INNODB
   CHARSET = utf8;
+
+/* 新建客户表 */
+CREATE TABLE `credit_card`.`db_customer` (
+  `id`      VARCHAR(18)  NOT NULL
+  COMMENT '身份证',
+  `phone`   VARCHAR(11)  NOT NULL
+  COMMENT '手机号',
+  `card`    VARCHAR(16)  NOT NULL
+  COMMENT '卡号',
+  `name`    VARCHAR(50)  NOT NULL
+  COMMENT '姓名',
+  `gender`  VARCHAR(6)   NOT NULL
+  COMMENT '性别',
+  `address` VARCHAR(255) NOT NULL
+  COMMENT '地址',
+  `level`   INT(2)       NOT NULL DEFAULT 1
+  COMMENT '偿还等级',
+  `credit`  INT(4)       NOT NULL DEFAULT 60
+  COMMENT '信用评分',
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `UNIQUE` (`phone`)
+)
+  ENGINE = INNODB
+  CHARSET = utf8;

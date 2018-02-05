@@ -22,6 +22,10 @@ public class LoginController {
 
     @RequestMapping("/login")
     public ModelAndView login(String username, String password){
-        return new ModelAndView("user");
+        Staff staff = user.getUser(username);
+        if(staff.getPassword().equals(password)){
+            return new ModelAndView("user");
+        }
+        return null;
     }
 }
