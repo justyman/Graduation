@@ -60,3 +60,73 @@ CREATE TABLE `credit_card`.`db_customer` (
 )
   ENGINE = INNODB
   CHARSET = utf8;
+
+/* 新建偿还等级表 */
+CREATE TABLE `credit_card`.`db_level` (
+  `level` INT(2)         NOT NULL
+  COMMENT '偿还等级',
+  `max`   DECIMAL(12, 2) NOT NULL
+  COMMENT '最大额度',
+  PRIMARY KEY (`level`)
+)
+  ENGINE = INNODB
+  CHARSET = utf8;
+
+/* 新建客户表外键字段 偿还等级 */
+ALTER TABLE `credit_card`.`db_customer`
+  ADD FOREIGN KEY (`level`) REFERENCES `credit_card`.`db_level` (`level`)
+  ON UPDATE CASCADE
+  ON DELETE CASCADE;
+
+/* 新建信用评分表 */
+CREATE TABLE `credit_card`.`db_credit` (
+  `id`    VARCHAR(18)    NOT NULL
+  COMMENT '身份证',
+  `name`  VARCHAR(50)    NOT NULL
+  COMMENT '姓名',
+  `delay` INT(4)         NOT NULL DEFAULT 0
+  COMMENT '总延期未还款次数',
+  `debt`  DECIMAL(12, 2) NOT NULL DEFAULT 0.00
+  COMMENT '总延期未还款金额',
+  `total` INT(4)         NOT NULL DEFAULT 0
+  COMMENT '总还款日次数',
+  `money` DECIMAL(12, 2) NOT NULL DEFAULT 0.00
+  COMMENT '总消费金额',
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`id`) REFERENCES `credit_card`.`db_customer` (`id`)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+)
+  ENGINE = INNODB
+  CHARSET = utf8;
+
+/* 新建信用卡表 */
+CREATE TABLE `credit_card`.`db_card` (
+  `card`   VARCHAR(16)    NOT NULL
+  COMMENT '卡号',
+  `id`     VARCHAR(18)    NOT NULL
+  COMMENT '身份证',
+  `date`   VARCHAR(8)     NOT NULL
+  COMMENT '开户日期',
+  `amount` DECIMAL(12, 2) NOT NULL
+  COMMENT '当前额度',
+  `bill`   VARCHAR(8)     NOT NULL
+  COMMENT '账单日',
+  `money`  DECIMAL(12, 2) NOT NULL
+  COMMENT '当前余额',
+  `status` INT(1)         NOT NULL DEFAULT 0
+  COMMENT '信用卡状态',
+  PRIMARY KEY (`card`),
+  UNIQUE INDEX `UNIQUE` (`id`),
+  FOREIGN KEY (`id`) REFERENCES `credit_card`.`db_customer` (`id`)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+)
+  ENGINE = INNODB
+  CHARSET = utf8;
+
+/* 新建客户表外键字段 信用卡卡号 */
+ALTER TABLE `credit_card`.`db_customer`
+  ADD FOREIGN KEY (`card`) REFERENCES `credit_card`.`db_card` (`card`)
+  ON UPDATE CASCADE
+  ON DELETE CASCADE;
