@@ -9,14 +9,14 @@
         <param-value>classpath:spring-context.xml</param-value>
     </context-param>
 
-    <!-- 对spring开始监听 -->
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-
     <!-- java.beans.Introspector防止发生内存泄露 -->
     <listener>
         <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
+
+    <!-- 对spring开始监听 -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
     <!-- Spring编码过滤器 -->
