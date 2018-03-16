@@ -112,8 +112,6 @@ CREATE TABLE `credit_card`.`db_card` (
   COMMENT '当前额度',
   `bill`   VARCHAR(8)     NOT NULL
   COMMENT '账单日',
-  `money`  DECIMAL(12, 2) NOT NULL
-  COMMENT '当前余额',
   `status` INT(2)         NOT NULL DEFAULT 0
   COMMENT '信用卡状态 0:正常 1:冻结 -1:注销',
   PRIMARY KEY (`card`),
@@ -130,3 +128,34 @@ ALTER TABLE `credit_card`.`db_customer`
   ADD FOREIGN KEY (`card`) REFERENCES `credit_card`.`db_card` (`card`)
   ON UPDATE CASCADE
   ON DELETE CASCADE;
+
+/* 新建办卡信息表 */
+CREATE TABLE `credit_card`.`db_case` (
+  `card`      VARCHAR(16) NOT NULL
+  COMMENT '办卡号',
+  `channel`   VARCHAR(4)  NOT NULL
+  COMMENT '渠道',
+  `id`        VARCHAR(18) NOT NULL
+  COMMENT '身份证',
+  `staff`     VARCHAR(6)  NOT NULL
+  COMMENT '业务人员id',
+  `emergency` INT(2)      NOT NULL
+  COMMENT '紧急程度',
+  `deadline`  INT(2)      NOT NULL DEFAULT 7
+  COMMENT '处理期限 默认7天',
+  `time`      DATETIME    NOT NULL
+  COMMENT '受理时间',
+  PRIMARY KEY (`card`),
+  UNIQUE INDEX (`id`, `time`),
+  FOREIGN KEY (`card`) REFERENCES `credit_card`.`db_card` (`card`)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+  FOREIGN KEY (`id`) REFERENCES `credit_card`.`db_customer` (`id`)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+  FOREIGN KEY (`staff`) REFERENCES `credit_card`.`db_staff` (`username`)
+    ON UPDATE CASCADE
+    ON DELETE NO ACTION
+)
+  ENGINE = INNODB
+  CHARSET = utf8;
