@@ -16,23 +16,7 @@ CREATE TABLE `credit_card`.`db_staff` (
   `position` INT          NOT NULL
   COMMENT '职位ID',
   PRIMARY KEY (`username`),
-  UNIQUE INDEX `UNIQUE` (`phone`),
-  FOREIGN KEY (`position`) REFERENCES `credit_card`.`db_position` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
-)
-  ENGINE = INNODB
-  CHARSET = utf8;
-
-/* 新建职位表 */
-CREATE TABLE `credit_card`.`db_position` (
-  `id`         INT(2)      NOT NULL
-  COMMENT '职位ID',
-  `name`       VARCHAR(20) NOT NULL
-  COMMENT '职位名称',
-  `permission` VARCHAR(50) NOT NULL
-  COMMENT '职位权限',
-  PRIMARY KEY (`id`)
+  UNIQUE INDEX `UNIQUE` (`phone`)
 )
   ENGINE = INNODB
   CHARSET = utf8;
@@ -159,3 +143,6 @@ CREATE TABLE `credit_card`.`db_case` (
 )
   ENGINE = INNODB
   CHARSET = utf8;
+
+/*  */
+CREATE TABLE `credit_card`.`db_enum`( `key` VARCHAR(20) NOT NULL COMMENT '枚举key', `value` VARCHAR(255) NOT NULL COMMENT '枚举value', `remark` VARCHAR(50) NOT NULL COMMENT '备注', PRIMARY KEY (`key`) ) ENGINE=INNODB CHARSET=utf8;
