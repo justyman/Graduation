@@ -1,8 +1,9 @@
 package cn.zl.controller;
 
-import cn.zl.po.Staff;
-import cn.zl.service.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import cn.zl.utils.StringUtil;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,15 +18,26 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class LoginController {
-    @Autowired
-    private User user;
 
+    /**
+     * 用户登陆
+     * @param username
+     * @param password
+     * @return
+     */
     @RequestMapping("/login")
     public ModelAndView login(String username, String password){
-        Staff staff = user.getUser(username);
-        if(staff.getPassword().equals(password)){
-            return new ModelAndView("user");
+        ModelAndView mav = new ModelAndView();
+        // 字段校验
+        if(StringUtil.isEmpty(username) || StringUtil.isEmpty(password)){
+            mav.addObject("message", "用户名或密码不能为空！");
+            return mav;
         }
-        return null;
+        // 用户登陆
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        Subject subject = SecurityUtils.getSubject();
+        subject.login(token);
+        mav.setViewName("user");
+        return mav;
     }
 }

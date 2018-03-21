@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <classPathEntry location="./src/depends/mysql-connector-java-5.1.45.jar"/>
+    <context id="context1" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 -->
+            <property name="suppressAllComments" value="false"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://120.79.91.115:3306/credit_card"
+                        userId="root"
+                        password="password" />
+        <javaModelGenerator targetPackage="cn.zl.domain"
+                            targetProject="./src/main/java"/>
+        <sqlMapGenerator targetPackage="mapper/common"
+                         targetProject="./src/main/resources"/>
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="cn.zl.dao"
+                             targetProject="./src/main/java"/>
+
+        <table tableName="db_card" domainObjectName="Card"/>
+        <table tableName="db_case" domainObjectName="Case"/>
+        <table tableName="db_credit" domainObjectName="Credit"/>
+        <table tableName="db_customer" domainObjectName="Customer"/>
+        <table tableName="db_enum" domainObjectName="Enum"/>
+        <table tableName="db_level" domainObjectName="Level"/>
+        <table tableName="db_staff" domainObjectName="Staff"/>
+    </context>
+</generatorConfiguration>

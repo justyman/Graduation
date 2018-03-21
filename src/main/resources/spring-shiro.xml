@@ -25,8 +25,8 @@
     <!-- shiro拦截器配置 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
-        <property name="loginUrl" value="/login.do"/>
-        <property name="unauthorizedUrl" value="/login.do"/>
+        <property name="loginUrl" value="/index.html"/>
+        <property name="unauthorizedUrl" value="/index.html"/>
         <!-- 自定义filter配置 -->
         <property name="filterChainDefinitions">
             <value>
@@ -34,7 +34,7 @@
                 /js/** = anon
                 /images/** = anon
                 /favicon.ico = anon
-                /** = authc
+                /index.html = anon
             </value>
         </property>
     </bean>
