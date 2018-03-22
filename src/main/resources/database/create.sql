@@ -144,5 +144,34 @@ CREATE TABLE `credit_card`.`db_case` (
   ENGINE = INNODB
   CHARSET = utf8;
 
-/*  */
-CREATE TABLE `credit_card`.`db_enum`( `key` VARCHAR(20) NOT NULL COMMENT '枚举key', `value` VARCHAR(255) NOT NULL COMMENT '枚举value', `remark` VARCHAR(50) NOT NULL COMMENT '备注', PRIMARY KEY (`key`) ) ENGINE=INNODB CHARSET=utf8;
+/* 创建枚举表 */
+CREATE TABLE `credit_card`.`db_enum` (
+  `key`    VARCHAR(20)  NOT NULL
+  COMMENT '枚举key',
+  `value`  VARCHAR(255) NOT NULL
+  COMMENT '枚举value',
+  `remark` VARCHAR(50)  NOT NULL
+  COMMENT '备注',
+  PRIMARY KEY (`key`)
+)
+  ENGINE = INNODB
+  CHARSET = utf8;
+
+/* 创建修改密码表 */
+CREATE TABLE `credit_card`.`db_reset` (
+  `username`  VARCHAR(6)   NOT NULL
+  COMMENT '员工账号',
+  `password`  VARCHAR(255) NOT NULL
+  COMMENT '员工密码',
+  `resetword` VARCHAR(255) NOT NULL
+  COMMENT '重置的新密码',
+  `reason`    VARCHAR(255) NOT NULL
+  COMMENT '重置密码原因',
+  `time`      DATETIME     NOT NULL
+  COMMENT '申请时间',
+  PRIMARY KEY (`username`),
+  UNIQUE INDEX `UNIQUE` (`time`, `username`),
+  FOREIGN KEY (`username`) REFERENCES `credit_card`.`db_staff` (`username`)
+)
+  ENGINE = INNODB
+  CHARSET = utf8;

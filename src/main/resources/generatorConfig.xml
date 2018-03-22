@@ -30,5 +30,6 @@
         <table tableName="db_enum" domainObjectName="Enum"/>
         <table tableName="db_level" domainObjectName="Level"/>
         <table tableName="db_staff" domainObjectName="Staff"/>
+        <table tableName="db_reset" domainObjectName="Reset"/>
     </context>
 </generatorConfiguration>
