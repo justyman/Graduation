@@ -22,8 +22,34 @@ function login(){
 }
 
 /**
- * 登陆验证
+ * 校验登陆信息
  */
-function submit(){
-    $("#loginForm").submit();
+function check(){
+    $("#resultMessage").css("display", "none");
+    // 前端校验用户名密码
+    var username = $("#username").val();
+    var password = $("#password").val();
+    if(username.trim() === "" || password.trim() === ""){
+        $("#resultMessage").text("账号或密码不能为空").css("display", "");
+        return false;
+    }
+
+    $.ajax({
+        url:"/login.do",
+        type:"post",
+        contentType:"application/json;charset-utf-8",
+        data:JSON.stringify({"username":username,"password":password}),
+        success:function(data){
+            if(data.result === "200"){
+                return true;
+            }else if(data.result === "000"){
+                $("#resultMessage").text(data.message).css("display", "");
+            }
+            return false;
+        },
+        error:function(){
+            $("#resultMessage").text("服务器故障").css("display", "");
+        }
+    });
+    return false;
 }
