@@ -199,4 +199,9 @@ COMMENT '员工账号'
   ADD UNIQUE INDEX `UNIQUE` (`time`, `username`, `id`),
   ADD FOREIGN KEY (`username`) REFERENCES `credit_card`.`db_staff` (`username`);
 
+/* 简化员工表 */
+ALTER TABLE `credit_card`.`db_staff`
+  DROP COLUMN `count`,
+  DROP COLUMN `time`,
+  DROP INDEX `position`;
 

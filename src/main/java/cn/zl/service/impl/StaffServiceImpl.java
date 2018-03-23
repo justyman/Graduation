@@ -3,15 +3,15 @@ package cn.zl.service.impl;
 import cn.zl.dao.ResetMapper;
 import cn.zl.dao.StaffMapper;
 import cn.zl.domain.Reset;
-import cn.zl.domain.ResetExample;
 import cn.zl.domain.Staff;
 import cn.zl.domain.StaffExample;
 import cn.zl.pojo.ResultBean;
 import cn.zl.service.StaffService;
 import cn.zl.utils.Constants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
+import org.apache.log4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Service
 public class StaffServiceImpl implements StaffService{
-    private static final Logger log = LoggerFactory.getLogger(StaffServiceImpl.class);
+    private static final Logger log = Logger.getLogger("OPERATION");
 
     @Autowired
     private StaffMapper staffMapper;
@@ -74,15 +74,20 @@ public class StaffServiceImpl implements StaffService{
             return resultBean;
         }
 
+        MDC.put("username", reset.getUsername());
         try {
             resetMapper.insert(reset);
             resultBean.setResult(Constants.RESULT_SUCCESS);
-            log.info("用户{}申请重置密码", reset.getUsername());
+            log.info("申请重置密码");
+            return resultBean;
+        } catch (DuplicateKeyException e){
+            resultBean.setResult(Constants.RESULT_FAILURE);
+            resultBean.setMessage("您已经申请重置密码，请耐心等待管理员回复");
             return resultBean;
         } catch (Exception e) {
             resultBean.setResult(Constants.RESULT_FAILURE);
             resultBean.setMessage("数据库存储失败！请联系管理员！");
-            log.info("数据库异常：保存重置密码信息失败{}", e.getMessage());
+            log.info("保存重置密码信息失败!数据库异常：" +  e.getMessage().substring(0,200));
             return resultBean;
         }
     }

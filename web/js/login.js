@@ -60,7 +60,7 @@ function check(){
  * 校验修改密码信息
  */
 function checkReset(){
-    $("#resultMessageReset").css("display", "none");
+    $("#resultMessageReset").css("display", "none").css("color", "red");
     // 前端校验字段
     var username = $("#login").val();
     var resetPassword = $("#resetPassword").val();
@@ -73,7 +73,7 @@ function checkReset(){
     if(username.trim() === "" || resetPassword.trim() === ""){
         $("#resultMessageReset").text("账号或密码不能为空").css("display", "");
         return false;
-    }else if(resetPassword === confirmPassword){
+    }else if(resetPassword !== confirmPassword){
         $("#resultMessageReset").text("两次密码不匹配").css("display", "");
         return false;
     }else if(reason.trim() === ""){
@@ -84,19 +84,20 @@ function checkReset(){
     $.ajax({
         url:"/reset.do",
         type:"post",
+        async:false,
         contentType:"application/json;charset=utf-8",
         data:JSON.stringify({"username":username,"resetword":resetPassword,"reason":reason}),
         success:function(data){
             if(data.result === "200"){
-                alert("申请更换密码成功");
-                return true;
+                $("#resultMessageReset").text("申请成功，管理员将于三个工作日内给予答复").css("display", "").css("color", "green");
             }else if(data.result === "000"){
-                $("#resultMessage").text(data.message).css("display", "");
+                $("#resultMessageReset").text(data.message).css("display", "");
             }
             return false;
         },
         error:function(){
-            $("#resultMessage").text("服务器故障").css("display", "");
+            $("#resultMessageReset").text("服务器故障，请联系管理员").css("display", "");
+            return false;
         }
     });
     return false;

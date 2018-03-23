@@ -81,7 +81,7 @@ public class LoginController {
     public ResultBean reset(@RequestBody Reset reset){
         ResultBean resultBean = new ResultBean();
         // 字段校验
-        if(StringUtil.isEmpty(reset.getUsername()) || StringUtil.isEmpty(reset.getPassword())){
+        if(StringUtil.isEmpty(reset.getUsername()) || StringUtil.isEmpty(reset.getResetword())){
             resultBean.setResult(Constants.RESULT_FAILURE);
             resultBean.setMessage("账号或者密码不能为空！");
             return resultBean;
