@@ -1,6 +1,8 @@
 package cn.zl.service;
 
+import cn.zl.domain.Reset;
 import cn.zl.domain.Staff;
+import cn.zl.pojo.ResultBean;
 
 /**
  * @author ZL.
@@ -14,4 +16,9 @@ public interface StaffService {
      * 员工登陆
      */
     Staff login(String username, String password);
+
+    /**
+     * 重置密码
+     */
+    ResultBean reset(Reset reset);
 }

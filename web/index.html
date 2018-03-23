@@ -36,11 +36,12 @@
 <section class="container" id="resetModule">
     <div class="login" style="margin-top: -50px">
         <h1 style="cursor:default">重置密码</h1>
-        <form method="post" action="index.html">
-            <p><input type="text" name="login" value="" placeholder="用户名"></p>
-            <p><input type="password" name="resetPassword" value="" placeholder="重置密码"></p>
-            <p><input type="password" name="confirmPassword" value="" placeholder="确认密码"></p>
-            <p><input type="text" name="reason" value="" placeholder="请输入您申请重置密码的原因"></p>
+        <form method="post" action="index.html" onsubmit="return checkReset()">
+            <p><input type="text" id="login" value="" placeholder="用户名"></p>
+            <p><input type="password" id="resetPassword" value="" placeholder="重置密码"></p>
+            <p><input type="password" id="confirmPassword" value="" placeholder="确认密码"></p>
+            <p><input type="text" id="reason" value="" placeholder="请输入您申请重置密码的原因"></p>
+            <p id="resultMessageReset" style="color: red;display: none;text-align: center"></p>
             <p class="submit"><input type="submit" name="commit" value="提交"></p>
         </form>
     </div>

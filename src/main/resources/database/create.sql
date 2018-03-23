@@ -175,3 +175,28 @@ CREATE TABLE `credit_card`.`db_reset` (
 )
   ENGINE = INNODB
   CHARSET = utf8;
+
+/* 创建日志表 */
+CREATE TABLE `credit_card`.`db_log` (
+  `id`      INT          NOT NULL AUTO_INCREMENT
+  COMMENT '日志id',
+  `time`    DATETIME     NOT NULL
+  COMMENT '日志时间',
+  `message` VARCHAR(255) NOT NULL
+  COMMENT '日志信息',
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `UNIQUE` (`id`, `time`)
+)
+  ENGINE = INNODB
+  CHARSET = utf8;
+
+/* 更新日志表 */
+ALTER TABLE `credit_card`.`db_log`
+  ADD COLUMN `username` VARCHAR(6) NOT NULL
+COMMENT '员工账号'
+  AFTER `time`,
+  DROP INDEX `UNIQUE`,
+  ADD UNIQUE INDEX `UNIQUE` (`time`, `username`, `id`),
+  ADD FOREIGN KEY (`username`) REFERENCES `credit_card`.`db_staff` (`username`);
+
+
