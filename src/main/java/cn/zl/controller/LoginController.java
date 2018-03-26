@@ -5,7 +5,10 @@ import cn.zl.domain.Staff;
 import cn.zl.pojo.ResultBean;
 import cn.zl.service.StaffService;
 import cn.zl.utils.Constants;
+import cn.zl.utils.SessionUtil;
 import cn.zl.utils.StringUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 import org.apache.shiro.SecurityUtils;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author ZL.
@@ -70,6 +74,11 @@ public class LoginController {
         resultBean.setResult(Constants.RESULT_SUCCESS);
         MDC.put("username", staff.getUsername());
         log.info("登陆成功");
+        // 返回用户信息，清空重要的字段，生成json返回给前端
+        staff = SessionUtil.getStaffSession();
+        staff.setUsername("");
+        staff.setPassword("");
+        resultBean.setMessage(JSON.toJSONString(staff));
         return resultBean;
     }
 

@@ -44,6 +44,8 @@ function check(){
         success:function(data){
             if(data.result === "200"){
                 $("#resultMessage").text("正在登陆...请稍后...").css("display", "").css("color", "green");
+                // 存储成功登陆的用户信息至cookie
+                document.cookie = "staffJson=" + data.message;
                 status = true;
             }else if(data.result === "000"){
                 $("#resultMessage").text(data.message).css("display", "");

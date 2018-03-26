@@ -30,25 +30,14 @@
                 ZL
             </a>
 
-            <!-- 搜索栏 -->
-            <ul class="nav navbar-nav search-nav">
-                <li>
-                    <div class="search">
-                        <div class="form-group form-animate-text">
-                            <input type="text" class="form-text" required>
-                            <span class="bar"></span>
-                            <label class="label-search">Type here to <b>Search</b> </label>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-
             <!-- 用户信息 -->
             <ul class="nav navbar-nav navbar-right user-nav">
-                <li class="user-name"><span>Kyrie Irving</span></li>
+                <li class="user-name">状态：<span id="staffStatus"></span></li>
+                <li class="user-name">职位：<span id="staffPosition"></span></li>
+                <li class="user-name">姓名：<span id="staffName"></span></li>
                 <li class="dropdown avatar-dropdown">
                     <!-- 头像 -->
-                    <img src="/images/test.jpg" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>
+                    <img src="/images/admin.jpg" id="staffImage" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>
                 </li>
             </ul>
         </div>
@@ -60,7 +49,9 @@
     <div id="left-menu">
         <div class="sub-left-menu scroll">
             <ul class="nav nav-list">
-                <li><div class="left-bg"></div></li>
+                <li>
+                    <div class="left-bg"></div>
+                </li>
                 <li class="time">
                     <h1 class="animated fadeInLeft">分秒</h1>
                     <p class="animated fadeInRight">年月日</p>
@@ -68,7 +59,7 @@
                 <li class="active ripple">
                     <a class="tree-toggle nav-header">
                         <span class="fa-user fa"></span>
-                            个人中心
+                        个人中心
                         <span class="fa-angle-right fa right-arrow text-right"></span>
                     </a>
                     <ul class="nav nav-list tree">
@@ -79,7 +70,7 @@
                 <li class="ripple">
                     <a class="tree-toggle nav-header">
                         <span class="fa-tags fa"></span>
-                            系统管理
+                        系统管理
                         <span class="fa-angle-right fa right-arrow text-right"></span>
                     </a>
                     <ul class="nav nav-list tree">
@@ -93,7 +84,7 @@
                 <li class="ripple">
                     <a class="tree-toggle nav-header">
                         <span class="fa-list-alt fa"></span>
-                            业务管理
+                        业务管理
                         <span class="fa-angle-right fa right-arrow text-right"></span>
                     </a>
                     <ul class="nav nav-list tree">
@@ -106,7 +97,7 @@
                 <li class="ripple">
                     <a class="tree-toggle nav-header">
                         <span class="fa-pencil-square-o fa"></span>
-                            审批管理
+                        审批管理
                         <span class="fa-angle-right fa right-arrow text-right"></span>
                     </a>
                     <ul class="nav nav-list tree">
@@ -121,6 +112,10 @@
     </div>
     <!-- end: Left Menu -->
 </div>
+
+<!-- 主页面 -->
+<iframe style="border: 0; width: 100%" frameborder="0" scrolling="auto" id="main" src="">
+</iframe>
 </body>
 </html>
 <!-- JS -->
@@ -135,3 +130,4 @@
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/moment.min.js"></script>
 <script src="/js/main.js"></script>
+<script src="/js/user.js"></script>

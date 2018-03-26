@@ -27,7 +27,6 @@
         <table tableName="db_case" domainObjectName="Case"/>
         <table tableName="db_credit" domainObjectName="Credit"/>
         <table tableName="db_customer" domainObjectName="Customer"/>
-        <table tableName="db_enum" domainObjectName="Enum"/>
         <table tableName="db_level" domainObjectName="Level"/>
         <table tableName="db_staff" domainObjectName="Staff"/>
         <table tableName="db_reset" domainObjectName="Reset"/>

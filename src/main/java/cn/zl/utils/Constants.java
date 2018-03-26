@@ -20,4 +20,9 @@ public class Constants {
      * 固定时间格式
      */
     public static final String TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+
+    /**
+     * 用户sessionKey
+     */
+    public static final String STAFF_SESSION_KEY = "staffSessionKey";
 }

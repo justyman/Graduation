@@ -144,19 +144,6 @@ CREATE TABLE `credit_card`.`db_case` (
   ENGINE = INNODB
   CHARSET = utf8;
 
-/* 创建枚举表 */
-CREATE TABLE `credit_card`.`db_enum` (
-  `key`    VARCHAR(20)  NOT NULL
-  COMMENT '枚举key',
-  `value`  VARCHAR(255) NOT NULL
-  COMMENT '枚举value',
-  `remark` VARCHAR(50)  NOT NULL
-  COMMENT '备注',
-  PRIMARY KEY (`key`)
-)
-  ENGINE = INNODB
-  CHARSET = utf8;
-
 /* 创建修改密码表 */
 CREATE TABLE `credit_card`.`db_reset` (
   `username`  VARCHAR(6)   NOT NULL
@@ -205,3 +192,6 @@ ALTER TABLE `credit_card`.`db_staff`
   DROP COLUMN `time`,
   DROP INDEX `position`;
 
+/* 新增员工头像字段 */
+ALTER TABLE `credit_card`.`db_staff`
+  ADD COLUMN `image` VARCHAR(20) NULL COMMENT '员工头像' AFTER `phone`;
