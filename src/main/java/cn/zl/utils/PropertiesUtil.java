@@ -27,9 +27,11 @@ public class PropertiesUtil {
      */
     private static Properties getProperties() throws Exception {
         InputStream inputStream = null;
+        Properties properties = new Properties();
         Resource resource = new DefaultResourceLoader().getResource("data.properties");
         try {
             inputStream = resource.getInputStream();
+            properties.load(inputStream);
         } catch (IOException e) {
             throw new Exception("配置文件读取失败");
         } finally {
@@ -37,8 +39,6 @@ public class PropertiesUtil {
                 inputStream.close();
             }
         }
-        Properties properties = new Properties();
-        properties.load(inputStream);
         return properties;
     }
 }

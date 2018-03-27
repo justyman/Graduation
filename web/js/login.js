@@ -41,18 +41,20 @@ function check(){
         async:false,
         contentType:"application/json;charset=utf-8",
         data:JSON.stringify({"username":username,"password":password}),
+        beforeSend:function () {
+            $("#resultMessage").text("正在登陆...请稍后...").css("display", "").css("color", "green");
+        },
         success:function(data){
             if(data.result === "200"){
-                $("#resultMessage").text("正在登陆...请稍后...").css("display", "").css("color", "green");
                 // 存储成功登陆的用户信息至cookie
                 document.cookie = "staffJson=" + data.message;
                 status = true;
             }else if(data.result === "000"){
-                $("#resultMessage").text(data.message).css("display", "");
+                $("#resultMessage").text(data.message).css("display", "").css("color", "red");
             }
         },
         error:function(){
-            $("#resultMessage").text("服务器故障，请联系管理员").css("display", "");
+            $("#resultMessage").text("服务器故障，请联系管理员").css("display", "").css("color", "red");
         }
     });
     return status;

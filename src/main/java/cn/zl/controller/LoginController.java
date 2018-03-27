@@ -2,13 +2,12 @@ package cn.zl.controller;
 
 import cn.zl.domain.Reset;
 import cn.zl.domain.Staff;
+import cn.zl.pojo.Info;
 import cn.zl.pojo.ResultBean;
 import cn.zl.service.StaffService;
 import cn.zl.utils.Constants;
-import cn.zl.utils.SessionUtil;
 import cn.zl.utils.StringUtil;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 import org.apache.shiro.SecurityUtils;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author ZL.
@@ -44,7 +42,7 @@ public class LoginController {
      * 登陆成功跳转至用户页面
      */
     @RequestMapping("/user")
-    public ModelAndView user(){
+    public ModelAndView user() {
         return new ModelAndView("user");
     }
 
@@ -53,10 +51,11 @@ public class LoginController {
      */
     @RequestMapping("/login")
     @ResponseBody
-    public ResultBean login(@RequestBody Staff staff){
+    public ResultBean login(@RequestBody Staff staff) {
         ResultBean resultBean = new ResultBean();
+        MDC.put("username", staff.getUsername());
         // 字段校验
-        if(StringUtil.isEmpty(staff.getUsername()) || StringUtil.isEmpty(staff.getPassword())){
+        if (StringUtil.isEmpty(staff.getUsername()) || StringUtil.isEmpty(staff.getPassword())) {
             resultBean.setResult(Constants.RESULT_FAILURE);
             resultBean.setMessage("账号或者密码不能为空！");
             return resultBean;
@@ -68,17 +67,20 @@ public class LoginController {
             subject.login(token);
         } catch (AuthenticationException e) {
             resultBean.setResult(Constants.RESULT_FAILURE);
-            resultBean.setMessage(e.getMessage());
+            log.info("shiro异常：" + e.getMessage().substring(0, 200));
             return resultBean;
         }
+        // 得到用户信息
+        Info info = new Info();
+        resultBean = staffService.getInfo(info);
+        if(Constants.RESULT_FAILURE.equals(resultBean.getResult())){
+            return resultBean;
+        }
+        // 返回json
+        String json = JSON.toJSONString(info);
         resultBean.setResult(Constants.RESULT_SUCCESS);
-        MDC.put("username", staff.getUsername());
+        resultBean.setMessage(json);
         log.info("登陆成功");
-        // 返回用户信息，清空重要的字段，生成json返回给前端
-        staff = SessionUtil.getStaffSession();
-        staff.setUsername("");
-        staff.setPassword("");
-        resultBean.setMessage(JSON.toJSONString(staff));
         return resultBean;
     }
 
@@ -87,14 +89,14 @@ public class LoginController {
      */
     @RequestMapping("/reset")
     @ResponseBody
-    public ResultBean reset(@RequestBody Reset reset){
+    public ResultBean reset(@RequestBody Reset reset) {
         ResultBean resultBean = new ResultBean();
         // 字段校验
-        if(StringUtil.isEmpty(reset.getUsername()) || StringUtil.isEmpty(reset.getResetword())){
+        if (StringUtil.isEmpty(reset.getUsername()) || StringUtil.isEmpty(reset.getResetword())) {
             resultBean.setResult(Constants.RESULT_FAILURE);
             resultBean.setMessage("账号或者密码不能为空！");
             return resultBean;
-        }else if(StringUtil.isEmpty(reset.getResetword()) || StringUtil.isEmpty(reset.getReason())){
+        } else if (StringUtil.isEmpty(reset.getResetword()) || StringUtil.isEmpty(reset.getReason())) {
             resultBean.setResult(Constants.RESULT_FAILURE);
             resultBean.setMessage("重置密码或理由不能空！");
             return resultBean;

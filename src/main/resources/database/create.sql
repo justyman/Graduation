@@ -195,3 +195,15 @@ ALTER TABLE `credit_card`.`db_staff`
 /* 新增员工头像字段 */
 ALTER TABLE `credit_card`.`db_staff`
   ADD COLUMN `image` VARCHAR(20) NULL COMMENT '员工头像' AFTER `phone`;
+
+/* 新增员工性别、出生年月、入职日期字段 */
+ALTER TABLE `credit_card`.`db_staff`
+  ADD COLUMN `sex` VARCHAR(2) NULL COMMENT '员工性别' AFTER `name`,
+  ADD COLUMN `birth` DATE NULL COMMENT '员工出生年月' AFTER `sex`,
+  ADD COLUMN `entry` DATE NULL COMMENT '员工入职日期' AFTER `image`;
+ALTER TABLE `credit_card`.`db_staff`
+  CHANGE `sex` `sex` VARCHAR(2) CHARSET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '员工性别',
+  CHANGE `birth` `birth` DATE NOT NULL COMMENT '员工出生年月',
+  CHANGE `entry` `entry` DATE NOT NULL COMMENT '员工入职日期';
+ALTER TABLE `credit_card`.`db_staff`
+  CHANGE `image` `image` VARCHAR(20) CHARSET utf8 COLLATE utf8_general_ci DEFAULT 'null.png' NOT NULL COMMENT '员工头像';

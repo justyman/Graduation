@@ -2,6 +2,10 @@
  * 页面初始化加载用户信息
  */
 $(document).ready(function(){
+    // 初始化frame
+    var ifm= document.getElementById("mainFrame");
+    ifm.height=$(document).height();
+
     var staffJson = "";
     var cookies = document.cookie;
     var arrCookies = cookies.split(";");
@@ -14,22 +18,15 @@ $(document).ready(function(){
     // 得到用户信息，并写入页面
     var staff = JSON.parse(staffJson.replace("staffJson=", ""));
     var name = staff.name;
-    var phone = staff.phone;
     var position = staff.position;
     var image = staff.image;
     var status = staff.status;
-    if(status === "Y"){
-        $("#staffStatus").text("正常");
-    }else if(status === "N"){
-        $("#staffStatus").text("冻结");
-    }
-    if(position === 0){
-        $("#staffPosition").text("管理员");
-    }else if(position === 1){
-        $("#staffPosition").text("审批人员");
-    }else if(position === 2){
-        $("#staffPosition").text("业务人员");
-    }
+    $("#staffStatus").text(status);
+    $("#staffPosition").text(position);
     $("#staffName").text(name);
-    $("#staffImage").src = "/images/" + image;
+    $("#staffImage").attr("src", "/images/" + image);
+
+    // 设置初始化主页面信息
+    var url = location.href.replace("user", "info");
+    $("#mainFrame").attr("src", url);
 });

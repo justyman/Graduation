@@ -2,6 +2,7 @@ package cn.zl.service;
 
 import cn.zl.domain.Reset;
 import cn.zl.domain.Staff;
+import cn.zl.pojo.Info;
 import cn.zl.pojo.ResultBean;
 
 /**
@@ -21,4 +22,9 @@ public interface StaffService {
      * 重置密码
      */
     ResultBean reset(Reset reset);
+
+    /**
+     * 得到并配置用户信息
+     */
+    ResultBean getInfo(Info info);
 }

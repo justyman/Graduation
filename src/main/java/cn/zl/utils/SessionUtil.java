@@ -50,7 +50,7 @@ public class SessionUtil {
     /**
      * 获取用户session
      */
-    public static Staff getStaffSession(){
-        return (Staff) getSessionAttribute(Constants.STAFF_SESSION_KEY);
+    public static Object getStaffSession(){
+        return getSessionAttribute(Constants.STAFF_SESSION_KEY);
     }
 }
