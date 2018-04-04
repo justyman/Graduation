@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body style="background-color: rgba(240,243,244,0.75); ">
+<!-- 导航栏 -->
+<div>
+    <h3 style="color: rgba(86,86,86,0.75); font-family: FontAwesome">您当前的位置：业务管理 -> 查询信息</h3>
+</div>
+<hr style="height:1px;border:none;border-top:1px solid #cccccc;"/>
+
+<!-- 查询条件 -->
+<form class="form-inline" role="form" style="margin-bottom: 20px">
+    <div class="form-group">
+        <label for="card">卡号：</label><input type="text" id="card" class="form-control"
+                                            style="height: 30px;margin-right: 20px"
+                                            placeholder="默认所有">
+        <label for="name">姓名：</label><input type="text" id="name" class="form-control"
+                                            style="height: 30px;margin-right: 20px"
+                                            placeholder="默认所有">
+        <label for="channel">渠道：</label>
+        <select id="channel" class="form-control" style="height: 30px;padding-top: 3px;margin-right: 20px">
+            <option value="">默认所有</option>
+            <option value="bank">银行网点</option>
+            <option value="web">官方网站</option>
+            <option value="app">手机APP</option>
+            <option value="weChat">微信程序</option>
+        </select>
+        <label for="status">状态：</label>
+        <select id="status" class="form-control" style="height: 30px;padding-top: 3px;margin-right: 20px">
+            <option value="">默认所有</option>
+            <option value="Y">已处理</option>
+            <option value="N">未处理</option>
+            <option value="E">异常</option>
+        </select>
+        <label for="deadline">期限：</label>
+        <select id="deadline" class="form-control" style="height: 30px;padding-top: 3px;margin-right: 20px">
+            <option value="">默认七天内</option>
+            <option value="Y">一天内</option>
+            <option value="N">三天内</option>
+            <option value="E">五天内</option>
+        </select>
+        <input type="button" value="查询" id="query" class="form-control" style="height: 30px;padding-top: 4px"/>
+    </div>
+</form>
+
+<!-- 表格 -->
+<table class="table table-hover" style="border:1px solid #cccccc;background-color: #eeeeee">
+    <thead>
+    <tr>
+        <th>卡号</th>
+        <th>客户姓名</th>
+        <th>渠道</th>
+        <th>业务人员</th>
+        <th>办理状态</th>
+        <th>审批人员</th>
+        <th>办理时间</th>
+        <th>处理期限</th>
+        <th>剩余时间</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>123456789</td>
+        <td>zl</td>
+        <td>app</td>
+        <td>00535</td>
+        <td>N</td>
+        <td>01704</td>
+        <td>2018-4-4</td>
+        <td>5</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>123456789</td>
+        <td>zl</td>
+        <td>app</td>
+        <td>00535</td>
+        <td>N</td>
+        <td>01704</td>
+        <td>2018-4-4</td>
+        <td>5</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>123456789</td>
+        <td>zl</td>
+        <td>app</td>
+        <td>00535</td>
+        <td>N</td>
+        <td>01704</td>
+        <td>2018-4-4</td>
+        <td>5</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>123456789</td>
+        <td>zl</td>
+        <td>app</td>
+        <td>00535</td>
+        <td>N</td>
+        <td>01704</td>
+        <td>2018-4-4</td>
+        <td>5</td>
+        <td>2</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
+<!-- JS -->
+<script src="/js/jquery.min.js"></script>

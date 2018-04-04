@@ -30,3 +30,27 @@ $(document).ready(function(){
     var url = location.href.replace("user", "info");
     $("#mainFrame").attr("src", url);
 });
+
+/**
+ * 跳转至个人信息页面
+ */
+function info() {
+    var url = location.href.replace("user", "info");
+    $("#mainFrame").attr("src", url);
+}
+
+/**
+ * 跳转至业务查询页面
+ */
+function businessQuery() {
+    var url = location.href.replace("user", "businessQuery");
+    $("#mainFrame").attr("src", url);
+}
+
+/**
+ * 跳转至审批查询页面
+ */
+function approveQuery() {
+    var url = location.href.replace("user", "approveQuery");
+    $("#mainFrame").attr("src", url);
+}

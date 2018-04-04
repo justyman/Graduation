@@ -207,3 +207,7 @@ ALTER TABLE `credit_card`.`db_staff`
   CHANGE `entry` `entry` DATE NOT NULL COMMENT '员工入职日期';
 ALTER TABLE `credit_card`.`db_staff`
   CHANGE `image` `image` VARCHAR(20) CHARSET utf8 COLLATE utf8_general_ci DEFAULT 'null.png' NOT NULL COMMENT '员工头像';
+
+/* 新增工单处理状态字段 */
+ALTER TABLE `credit_card`.`db_case`
+  ADD COLUMN `status` VARCHAR(2) NOT NULL COMMENT '受理状态 N:未处理 Y:已处理 E:异常' AFTER `time`;
