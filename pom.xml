@@ -169,6 +169,13 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.47</version>
         </dependency>
+
+        <!-- PageHelper -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.1.3</version>
+        </dependency>
     </dependencies>
 
     <build>

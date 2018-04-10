@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zl.dao.CommonMapper">
+    <resultMap id="queryCasesMap" type="cn.zl.domain.extend.CaseExtend">
+        <id column="card" jdbcType="VARCHAR" property="card" />
+        <result column="cusName" jdbcType="VARCHAR" property="cusName" />
+        <result column="channel" jdbcType="VARCHAR" property="channel" />
+        <result column="businessName" jdbcType="VARCHAR" property="businessName" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="approveName" jdbcType="VARCHAR" property="approveName" />
+        <result column="businessTime" jdbcType="TIMESTAMP" property="businessTime" />
+        <result column="deadline" jdbcType="INTEGER" property="deadline" />
+    </resultMap>
+
+    <select id="selectCases" resultMap="queryCasesMap">
+        SELECT cases.card, customer.name cusName, cases.channel, staff1.name businessName, cases.status,
+               staff2.name approveName, cases.business_time businessTime, cases.deadline
+        FROM db_case cases
+        RIGHT JOIN db_customer customer ON cases.id = customer.id
+        RIGHT JOIN db_approve approve ON cases.card = approve.card
+        RIGHT JOIN db_staff staff1 ON cases.business = staff1.username
+        RIGHT JOIN db_staff staff2 ON approve.approve = staff2.username
+        <where>
+            <if test="card != null and card != ''">
+                AND cases.card = #{card}
+            </if>
+            <if test="id != null and id != ''">
+                AND cases.id = #{id}
+            </if>
+            <if test="channel != null and channel != ''">
+                AND cases.channel = #{channel}
+            </if>
+            <if test="status != null and status != ''">
+                AND cases.status = #{status}
+            </if>
+            AND cases.deadline = #{deadline}
+        </where>
+        ORDER BY cases.business_time DESC
+    </select>
+
+</mapper>

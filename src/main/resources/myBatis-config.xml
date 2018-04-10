@@ -9,4 +9,11 @@
         <setting name="aggressiveLazyLoading" value="false"/>
         <setting name="lazyLoadTriggerMethods" value="clone"/>
     </settings>
+
+    <!-- pageHelper -->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <property name="helperDialect" value="mysql"/>
+        </plugin>
+    </plugins>
 </configuration>

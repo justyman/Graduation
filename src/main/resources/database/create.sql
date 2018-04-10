@@ -211,3 +211,48 @@ ALTER TABLE `credit_card`.`db_staff`
 /* 新增工单处理状态字段 */
 ALTER TABLE `credit_card`.`db_case`
   ADD COLUMN `status` VARCHAR(2) NOT NULL COMMENT '受理状态 N:未处理 Y:已处理 E:异常' AFTER `time`;
+
+ALTER TABLE `credit_card`.`db_case`
+  CHANGE `staff` `businessman` VARCHAR(6) CHARSET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '业务人员id',
+  CHANGE `time` `business_time` DATETIME NOT NULL COMMENT '受理时间',
+  ADD COLUMN `approver` VARCHAR(6) NULL COMMENT '审批人员id' AFTER `status`,
+  ADD COLUMN `approve_time` DATETIME NULL COMMENT '审批时间' AFTER `approver`,
+  DROP INDEX `staff`,
+  DROP FOREIGN KEY `db_case_ibfk_3`,
+  ADD FOREIGN KEY (`businessman`) REFERENCES `credit_card`.`db_staff`(`username`),
+  ADD FOREIGN KEY (`approver`) REFERENCES `credit_card`.`db_staff`(`username`);
+
+/* 新增审批表 */
+CREATE TABLE `credit_card`.`db_approve`(
+  `card` VARCHAR(16) NOT NULL COMMENT '卡号',
+  `channel` VARCHAR(4) NOT NULL COMMENT '渠道',
+  `id` VARCHAR(18) NOT NULL COMMENT '身份证',
+  `approve` VARCHAR(6) NOT NULL COMMENT '审批人员',
+  `approve_time` DATETIME NOT NULL COMMENT '审批时间',
+  `level` INT(2) NOT NULL COMMENT '信用等级',
+  PRIMARY KEY (`card`),
+  UNIQUE INDEX (`id`),
+  FOREIGN KEY (`card`) REFERENCES `credit_card`.`db_card`(`card`),
+  FOREIGN KEY (`id`) REFERENCES `credit_card`.`db_customer`(`id`),
+  FOREIGN KEY (`approve`) REFERENCES `credit_card`.`db_staff`(`username`),
+  FOREIGN KEY (`level`) REFERENCES `credit_card`.`db_level`(`level`)
+) ENGINE=INNODB CHARSET=utf8;
+
+ALTER TABLE `credit_card`.`db_case`
+  DROP COLUMN `approver`,
+  DROP COLUMN `approve_time`,
+  CHANGE `businessman` `business` VARCHAR(6) CHARSET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '业务人员id',
+  DROP INDEX `businessman`,
+  DROP INDEX `approver`,
+  DROP INDEX `id`,
+  ADD  UNIQUE INDEX `id` (`id`),
+  DROP FOREIGN KEY `db_case_ibfk_1`,
+  DROP FOREIGN KEY `db_case_ibfk_2`,
+  DROP FOREIGN KEY `db_case_ibfk_4`,
+  DROP FOREIGN KEY `db_case_ibfk_5`,
+  ADD FOREIGN KEY (`card`) REFERENCES `credit_card`.`db_card`(`card`),
+  ADD FOREIGN KEY (`id`) REFERENCES `credit_card`.`db_customer`(`id`),
+  ADD FOREIGN KEY (`business`) REFERENCES `credit_card`.`db_staff`(`username`);
+
+ALTER TABLE `credit_card`.`db_case`
+  DROP COLUMN `emergency`;

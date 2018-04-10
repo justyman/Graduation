@@ -25,4 +25,9 @@ public class Constants {
      * 用户sessionKey
      */
     public static final String STAFF_SESSION_KEY = "staffSessionKey";
+
+    /**
+     * 工单状态前缀
+     */
+    public static final String CASE_PREFIX = "CASE_";
 }

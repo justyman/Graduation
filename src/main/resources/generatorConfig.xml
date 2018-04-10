@@ -31,5 +31,6 @@
         <table tableName="db_staff" domainObjectName="Staff"/>
         <table tableName="db_reset" domainObjectName="Reset"/>
         <table tableName="db_log" domainObjectName="Log"/>
+        <table tableName="db_approve" domainObjectName="Approve"/>
     </context>
 </generatorConfiguration>

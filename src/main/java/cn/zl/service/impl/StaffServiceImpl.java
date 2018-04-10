@@ -14,10 +14,10 @@ import cn.zl.utils.SessionUtil;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -32,15 +32,13 @@ import java.util.List;
 public class StaffServiceImpl implements StaffService{
     private static final Logger log = Logger.getLogger("OPERATION");
 
-    @Autowired
+    @Resource
     private StaffMapper staffMapper;
 
-    @Autowired
+    @Resource
     private ResetMapper resetMapper;
     /**
      * 员工登陆
-     * @param username
-     * @param password
      * @return 用户名与密码匹配则返回员工信息，不匹配则返回null
      */
     public Staff login(String username, String password) {
@@ -53,7 +51,6 @@ public class StaffServiceImpl implements StaffService{
 
     /**
      * 重置密码
-     * @param reset
      * @return 重置成功返回true；失败返回false
      */
     public ResultBean reset(Reset reset) {

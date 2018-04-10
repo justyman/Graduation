@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <!-- CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/approve/customer.css">
 </head>
 <body style="background-color: rgba(240,243,244,0.75); ">
 <!-- 导航栏 -->
 <div>
-    <h3 style="color: rgba(86,86,86,0.75); font-family: FontAwesome">您当前的位置：业务管理 -> 查询信息</h3>
+    <h3 style="color: rgba(86,86,86,0.75); font-family: FontAwesome">您当前的位置：审批管理 -> 查询信息</h3>
 </div>
 <hr style="height:1px;border:none;border-top:1px solid #cccccc;"/>
 
@@ -18,7 +19,7 @@
         <label for="card">卡号：</label><input type="text" id="card" class="form-control"
                                             style="height: 30px;margin-right: 20px"
                                             placeholder="默认所有">
-        <label for="name">姓名：</label><input type="text" id="name" class="form-control"
+        <label for="idCard">身份证：</label><input type="text" id="idCard" class="form-control"
                                             style="height: 30px;margin-right: 20px"
                                             placeholder="默认所有">
         <label for="channel">渠道：</label>
@@ -27,7 +28,7 @@
             <option value="bank">银行网点</option>
             <option value="web">官方网站</option>
             <option value="app">手机APP</option>
-            <option value="weChat">微信程序</option>
+            <option value="wx">微信程序</option>
         </select>
         <label for="status">状态：</label>
         <select id="status" class="form-control" style="height: 30px;padding-top: 3px;margin-right: 20px">
@@ -38,17 +39,18 @@
         </select>
         <label for="deadline">期限：</label>
         <select id="deadline" class="form-control" style="height: 30px;padding-top: 3px;margin-right: 20px">
-            <option value="">默认七天内</option>
-            <option value="Y">一天内</option>
-            <option value="N">三天内</option>
-            <option value="E">五天内</option>
+            <option value="7">默认七天内</option>
+            <option value="1">一天内</option>
+            <option value="3">三天内</option>
+            <option value="5">五天内</option>
         </select>
-        <input type="button" value="查询" id="query" class="form-control" style="height: 30px;padding-top: 4px"/>
+        <input type="button" value="查询" onclick="query()" class="form-control" style="height: 30px;padding-top: 4px"/>
+        <ul id="tips" style="color: red;display: none">异常提示</ul>
     </div>
 </form>
 
 <!-- 表格 -->
-<table class="table table-hover" style="border:1px solid #cccccc;background-color: #eeeeee">
+<table class="table table-hover" id="queryTable" style="border:1px solid #cccccc;background-color: #eeeeee;display: none">
     <thead>
     <tr>
         <th>卡号</th>
@@ -110,7 +112,16 @@
     </tbody>
 </table>
 
+<!-- 分页 -->
+<ul id="pages" class="pager">
+    <li style="float: left">一共多少条记录</li>
+    <li class="disabled"><a href="#">上一页</a></li>
+    <li>第几页</li>
+    <li><a href="#">下一页</a></li>
+</ul>
+
 </body>
 </html>
 <!-- JS -->
 <script src="/js/jquery.min.js"></script>
+<script src="/js/approve/customer.js"></script>
