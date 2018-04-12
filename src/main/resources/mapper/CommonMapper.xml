@@ -12,14 +12,14 @@
         <result column="deadline" jdbcType="INTEGER" property="deadline" />
     </resultMap>
 
-    <select id="selectCases" resultMap="queryCasesMap">
+    <select id="selectCases" parameterType="cn.zl.domain.extend.CaseExtend" resultMap="queryCasesMap">
         SELECT cases.card, customer.name cusName, cases.channel, staff1.name businessName, cases.status,
                staff2.name approveName, cases.business_time businessTime, cases.deadline
         FROM db_case cases
-        RIGHT JOIN db_customer customer ON cases.id = customer.id
-        RIGHT JOIN db_approve approve ON cases.card = approve.card
-        RIGHT JOIN db_staff staff1 ON cases.business = staff1.username
-        RIGHT JOIN db_staff staff2 ON approve.approve = staff2.username
+        LEFT JOIN db_customer customer ON cases.id = customer.id
+        LEFT JOIN db_approve approve ON cases.card = approve.card
+        LEFT JOIN db_staff staff1 ON cases.business = staff1.username
+        LEFT JOIN db_staff staff2 ON approve.approve = staff2.username
         <where>
             <if test="card != null and card != ''">
                 AND cases.card = #{card}

@@ -3,25 +3,70 @@
  */
 function query() {
     $("#tips").css("display", "none");
+    $("#pages").css("display", "none");
+    $("#queryTable").css("display", "none");
+    $("#queryResult").empty();
 
     var card = $("#card").val();
-    if(!validateCard(card)){
+    if(card !== "" && !validateCard(card)){
         $("#tips").text("您输入的卡号格式不正确");
         $("#tips").css("display", "");
         return ;
     }
 
     var id = $("#idCard").val();
-    if(!validateIdCard(id)){
-        $("#tips").text("您输入的身份证格式不正确");
-        $("#tips").css("display", "");
-        return ;
-    }
-
     var channel = $("#channel").val();
     var status = $("#status").val();
     var deadline = $("#deadline").val();
+    var pageSize = $("#pageSize").val();
 
+    $.ajax({
+        url:"/queryCase.do",
+        type:"post",
+        async:true,
+        contentType:"application/json;charset=utf-8",
+        data:JSON.stringify({"card":card,"id":id,"channel":channel,"status":status,"deadline":deadline,"pageNum":1,"pageSize":pageSize}),
+        success:function(data){
+            if(data.result === "200"){
+                var json = JSON.parse(data.message);
+                var list = eval(json.list);
+                if (list === null || list.length === 0) {
+                    $("#tips").text("查无结果").css("display", "");
+                } else {
+                    // 查询结果
+                    for (var i = 0; i < list.length; i++) {
+                        var trNode = $("<tr/>");
+                        addTd(trNode, list[i].card);
+                        addTd(trNode, list[i].cusName);
+                        addTd(trNode, list[i].channelName);
+                        addTd(trNode, list[i].businessName);
+                        addTd(trNode, list[i].status);
+                        addTd(trNode, list[i].approveName);
+                        addTd(trNode, list[i].businessTime);
+                        addTd(trNode, list[i].deadline);
+                        $("#queryResult").append(trNode);
+                    }
+                    $("#queryTable").css("display", "");
+                    // 分页结果
+                    $("#total").text("一共" + json.total + "条记录");
+                    $("#pageNum").text("第" + json.pageNum + "页");
+                    $("#pages").css("display", "");
+                }
+            }else if(data.result === "000"){
+                $("#tips").text("查询失败").css("display", "");
+            }
+        },
+        error:function(){
+            $("#tips").text("数据库异常，请联系管理员").css("display", "");
+        }
+    });
+}
+
+/**
+ * 生成td
+ */
+function addTd(trNode, result) {
+    trNode.append("<td>" + result + "</td>");
 }
 
 /**
@@ -32,16 +77,6 @@ function validateCard(card) {
         return false;
     }
     return validateNum(card);
-}
-
-/**
- * 身份证格式校验
- */
-function validateIdCard(idCard) {
-    if(idCard.length !== 18){
-        return false;
-    }
-    return validateNum(idCard);
 }
 
 /**

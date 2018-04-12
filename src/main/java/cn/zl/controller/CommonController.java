@@ -52,10 +52,12 @@ public class CommonController {
             page = (Page)queryList;
         } catch (Exception e) {
             resultBean.setResult(Constants.RESULT_FAILURE);
+            e.getStackTrace();
             return resultBean;
         }
         map.put("list", queryList);
-        map.put("page", page);
+        map.put("pageNum", page.getPageNum());
+        map.put("total", page.getTotal());
         resultBean.setMessage(JSON.toJSONString(map));
         resultBean.setResult(Constants.RESULT_SUCCESS);
         return resultBean;

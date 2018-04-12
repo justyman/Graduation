@@ -256,3 +256,20 @@ ALTER TABLE `credit_card`.`db_case`
 
 ALTER TABLE `credit_card`.`db_case`
   DROP COLUMN `emergency`;
+ALTER TABLE `credit_card`.`db_customer` DROP FOREIGN KEY `db_customer_ibfk_1`;
+
+ALTER TABLE `credit_card`.`db_customer` ADD CONSTRAINT `db_customer_ibfk_1` FOREIGN KEY (`level`) REFERENCES `credit_card`.`db_level`(`level`) ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE `credit_card`.`db_customer` DROP FOREIGN KEY `db_customer_ibfk_2`;
+
+ALTER TABLE `credit_card`.`db_customer` ADD CONSTRAINT `db_customer_ibfk_2` FOREIGN KEY (`card`) REFERENCES `credit_card`.`db_card`(`card`) ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE `credit_card`.`db_card` DROP FOREIGN KEY `db_card_ibfk_1`;
+
+ALTER TABLE `credit_card`.`db_card` ADD CONSTRAINT `db_card_ibfk_1` FOREIGN KEY (`id`) REFERENCES `credit_card`.`db_customer`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE `credit_card`.`db_customer`
+  DROP FOREIGN KEY `db_customer_ibfk_2`;
+ALTER TABLE `credit_card`.`db_card`
+  CHANGE `date` `date` DATETIME NOT NULL COMMENT '开户日期',
+  CHANGE `bill` `bill` DATETIME NOT NULL COMMENT '账单日';
+ALTER TABLE `credit_card`.`db_card`
+  CHANGE `bill` `bill` INT(2) DEFAULT 5 NOT NULL COMMENT '账单日';
