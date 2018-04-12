@@ -18,6 +18,6 @@ public class ApproveController {
      */
     @RequestMapping("/approveQuery")
     public ModelAndView info(){
-        return new ModelAndView("approve/customer");
+        return new ModelAndView("approve/queryCase");
     }
 }

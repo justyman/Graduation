@@ -18,6 +18,6 @@ public class BusinessController {
      */
     @RequestMapping("/businessQuery")
     public ModelAndView info(){
-        return new ModelAndView("business/customer");
+        return new ModelAndView("business/queryCase");
     }
 }
