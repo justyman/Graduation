@@ -20,4 +20,12 @@ public class ApproveController {
     public ModelAndView info(){
         return new ModelAndView("approve/queryCase");
     }
+
+    /**
+     * 跳转至工单查询的详细信息页面
+     */
+    @RequestMapping("/approveQueryDetail")
+    public ModelAndView detail(){
+        return new ModelAndView("approve/detail");
+    }
 }

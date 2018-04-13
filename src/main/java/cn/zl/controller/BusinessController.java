@@ -20,4 +20,12 @@ public class BusinessController {
     public ModelAndView info(){
         return new ModelAndView("business/queryCase");
     }
+
+    /**
+     * 跳转至工单查询的详细信息页面
+     */
+    @RequestMapping("/businessQueryDetail")
+    public ModelAndView detail(){
+        return new ModelAndView("business/detail");
+    }
 }

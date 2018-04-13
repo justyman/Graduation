@@ -42,7 +42,7 @@ function query() {
                         addTd(trNode, list[i].businessName);
                         addTd(trNode, list[i].status);
                         addTd(trNode, list[i].approveName);
-                        addTd(trNode, list[i].businessTime);
+                        addTd(trNode, fmtDate(list[i].businessTime));
                         addTd(trNode, list[i].deadline);
                         $("#queryResult").append(trNode);
                     }
@@ -63,10 +63,28 @@ function query() {
 }
 
 /**
+ * 时间戳->yyyy-MM-dd
+ */
+function fmtDate(timeStamp){
+    var date = new Date();
+    date.setTime(timeStamp);
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    m = m < 10 ? ('0' + m) : m;
+    var d = date.getDate();
+    d = d < 10 ? ('0' + d) : d;
+    return y+"-"+m+"-"+d;
+}
+
+/**
  * 生成td
  */
 function addTd(trNode, result) {
-    trNode.append("<td>" + result + "</td>");
+    if(result.length === 16 && result.substring(0,4) === "6258"){
+        trNode.append("<td><a href='/businessQueryDetail.do?card=" + result + "' target='_blank'>" + result + "</a></td>");
+    }else{
+        trNode.append("<td>" + result + "</td>");
+    }
 }
 
 /**

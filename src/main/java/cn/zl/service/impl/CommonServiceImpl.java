@@ -2,6 +2,7 @@ package cn.zl.service.impl;
 
 import cn.zl.dao.CommonMapper;
 import cn.zl.domain.extend.CaseExtend;
+import cn.zl.pojo.Detail;
 import cn.zl.service.CommonService;
 import cn.zl.utils.Constants;
 import cn.zl.utils.PropertiesUtil;
@@ -38,5 +39,20 @@ public class CommonServiceImpl implements CommonService{
             caseExtend.setStatus(PropertiesUtil.getProperty(Constants.CASE_PREFIX + caseExtend.getStatus()));
         }
         return casesList;
+    }
+
+    /**
+     * 按卡号查询详细信息
+     * @return 详细信息
+     */
+    public Detail getDetail(String card) throws Exception{
+        Detail detail = commonMapper.selectDetail(card).get(0);
+        if(detail != null){
+            // 从配置文件中读取渠道代码对应的渠道名称
+            detail.setChannel(PropertiesUtil.getProperty(detail.getChannel()));
+            // 从配置文件中读取工单状态对应的名称
+            detail.setStatus(PropertiesUtil.getProperty(Constants.CASE_PREFIX + detail.getStatus()));
+        }
+        return detail;
     }
 }

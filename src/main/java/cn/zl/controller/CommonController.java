@@ -1,14 +1,19 @@
 package cn.zl.controller;
 
+import cn.zl.domain.Staff;
 import cn.zl.domain.extend.CaseExtend;
+import cn.zl.pojo.Detail;
 import cn.zl.pojo.QueryCaseBean;
 import cn.zl.pojo.ResultBean;
 import cn.zl.service.CommonService;
 import cn.zl.utils.Constants;
+import cn.zl.utils.SessionUtil;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.log4j.Logger;
+import org.apache.log4j.MDC;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +34,8 @@ import java.util.Map;
  */
 @Controller
 public class CommonController {
+    private static final Logger log = Logger.getLogger("OPERATION");
+
     @Resource
     private CommonService commonService;
 
@@ -39,6 +46,7 @@ public class CommonController {
     @RequestMapping("/queryCase")
     @ResponseBody
     public ResultBean queryCase(@RequestBody QueryCaseBean caseBean){
+        MDC.put("username", ((Staff)SessionUtil.getStaffSession()).getUsername());
         ResultBean resultBean = new ResultBean();
         CaseExtend caseExtend = new CaseExtend();
         PageInfo pageInfo = new PageInfo();
@@ -52,13 +60,39 @@ public class CommonController {
             page = (Page)queryList;
         } catch (Exception e) {
             resultBean.setResult(Constants.RESULT_FAILURE);
-            e.getStackTrace();
+            log.info("查询工单异常：" + e.getMessage().substring(0, 200));
             return resultBean;
         }
         map.put("list", queryList);
         map.put("pageNum", page.getPageNum());
         map.put("total", page.getTotal());
         resultBean.setMessage(JSON.toJSONString(map));
+        resultBean.setResult(Constants.RESULT_SUCCESS);
+        return resultBean;
+    }
+
+    /**
+     * 查询工单详细信息
+     */
+    @RequestMapping("/queryDetail")
+    @ResponseBody
+    public ResultBean detail(String card){
+        MDC.put("username", ((Staff)SessionUtil.getStaffSession()).getUsername());
+        ResultBean resultBean = new ResultBean();
+        Detail detail;
+        try {
+            detail = commonService.getDetail(card);
+        } catch (Exception e) {
+            resultBean.setResult(Constants.RESULT_FAILURE);
+            log.info("查询卡号{" + card + "}异常：" + e.getMessage());
+            return resultBean;
+        }
+        if(detail == null){
+            resultBean.setResult(Constants.RESULT_FAILURE);
+            log.info("查询卡号{" + card + "}无数据");
+            return resultBean;
+        }
+        resultBean.setMessage(JSON.toJSONString(detail));
         resultBean.setResult(Constants.RESULT_SUCCESS);
         return resultBean;
     }

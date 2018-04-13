@@ -38,4 +38,17 @@
         ORDER BY cases.business_time DESC
     </select>
 
+    <select id="selectDetail" parameterType="String" resultType="cn.zl.pojo.Detail">
+        SELECT customer.name, customer.gender, customer.phone, customer.id, customer.level, customer.credit,
+            customer.address, cases.card, cases.channel, cases.deadline, staff.name businessName,
+            cases.business_time businessTime, cases.status, card.date openDate, card.bill, card.amount, credit.money,
+            credit.debt, credit.delay, credit.total
+        FROM db_case cases
+        LEFT JOIN db_staff staff ON cases.business = staff.username
+        LEFT JOIN db_customer customer ON cases.id = customer.id
+        LEFT JOIN db_card card ON cases.card = card.card
+        LEFT JOIN db_credit credit ON customer.id = credit.id
+        WHERE cases.card = #{card}
+    </select>
+
 </mapper>
