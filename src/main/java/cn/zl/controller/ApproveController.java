@@ -16,7 +16,7 @@ public class ApproveController {
     /**
      * 跳转至查询客户信息页面
      */
-    @RequestMapping("/approveQuery")
+    @RequestMapping("approveQuery")
     public ModelAndView info(){
         return new ModelAndView("approve/queryCase");
     }
@@ -24,7 +24,7 @@ public class ApproveController {
     /**
      * 跳转至工单查询的详细信息页面
      */
-    @RequestMapping("/approveQueryDetail")
+    @RequestMapping("approveQueryDetail")
     public ModelAndView detail(){
         return new ModelAndView("approve/detail");
     }

@@ -21,7 +21,7 @@ function query() {
     var pageSize = $("#pageSize").val();
 
     $.ajax({
-        url:"/queryCase.do",
+        url:"queryCase.do",
         type:"post",
         async:true,
         contentType:"application/json;charset=utf-8",

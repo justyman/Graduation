@@ -16,7 +16,7 @@ public class BusinessController {
     /**
      * 跳转至查询客户信息页面
      */
-    @RequestMapping("/businessQuery")
+    @RequestMapping("businessQuery")
     public ModelAndView info(){
         return new ModelAndView("business/queryCase");
     }
@@ -24,7 +24,7 @@ public class BusinessController {
     /**
      * 跳转至工单查询的详细信息页面
      */
-    @RequestMapping("/businessQueryDetail")
+    @RequestMapping("businessQueryDetail")
     public ModelAndView detail(){
         return new ModelAndView("business/detail");
     }

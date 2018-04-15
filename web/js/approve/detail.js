@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var card =  (window.location.search).replace("?card=","");
     $.ajax({
-        url:"/queryDetail.do?card=" + card,
+        url:"queryDetail.do?card=" + card,
         type:"post",
         async:true,
         contentType:"application/json;charset=utf-8",

@@ -41,7 +41,7 @@ public class LoginController {
     /**
      * 登陆成功跳转至用户页面
      */
-    @RequestMapping("/user")
+    @RequestMapping("user")
     public ModelAndView user() {
         return new ModelAndView("user");
     }
@@ -49,7 +49,7 @@ public class LoginController {
     /**
      * 用户登陆
      */
-    @RequestMapping("/login")
+    @RequestMapping("login")
     @ResponseBody
     public ResultBean login(@RequestBody Staff staff) {
         ResultBean resultBean = new ResultBean();
@@ -87,7 +87,7 @@ public class LoginController {
     /**
      * 修改用户密码
      */
-    @RequestMapping("/reset")
+    @RequestMapping("reset")
     @ResponseBody
     public ResultBean reset(@RequestBody Reset reset) {
         ResultBean resultBean = new ResultBean();
