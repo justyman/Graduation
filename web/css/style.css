@@ -391,7 +391,7 @@ p.quote{
    
     .search-v1 #search-v1-images .post { height: 100px; background: cyan; margin-bottom: 20px; }
     .search-v1 #search-v1-images .tall { height: 200px; }
-}
+
 /*end: search v1*/
 
 
@@ -600,7 +600,7 @@ p.quote{
 
 .form-control.android[type='text'],
 .form-control.android[type='password'] {
-  width: 100%%;
+  width: 100%;
   font-family: "Roboto", "Droid Sans", sans-serif;
   font-size: 16px;
   margin: 0;
