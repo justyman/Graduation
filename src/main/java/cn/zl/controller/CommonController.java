@@ -43,7 +43,7 @@ public class CommonController {
      * 按条件分页查询信用卡工单结果
      * 每次查询默认分页：每页记录数10，显示第一页数据
      */
-    @RequestMapping("/queryCase")
+    @RequestMapping("queryCase")
     @ResponseBody
     public ResultBean queryCase(@RequestBody QueryCaseBean caseBean){
         MDC.put("username", ((Staff)SessionUtil.getStaffSession()).getUsername());
@@ -74,7 +74,7 @@ public class CommonController {
     /**
      * 查询工单详细信息
      */
-    @RequestMapping("/queryDetail")
+    @RequestMapping("queryDetail")
     @ResponseBody
     public ResultBean detail(String card){
         MDC.put("username", ((Staff)SessionUtil.getStaffSession()).getUsername());

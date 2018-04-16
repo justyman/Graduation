@@ -3,7 +3,7 @@
  */
 $(document).ready(function () {
     $.ajax({
-        url:"/staffInfo.do",
+        url:"staffInfo.do",
         type:"post",
         async:false,
         contentType:"application/json;charset=utf-8",

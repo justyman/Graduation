@@ -10,7 +10,7 @@ $(document).ready(function(){
     var cookies = document.cookie;
     var arrCookies = cookies.split(";");
     for(var i = 0; i < arrCookies.length; i++){
-        if(arrCookies[i].contains("staffJson")){
+        if(arrCookies[i].indexOf("staffJson") !== -1){
             staffJson = arrCookies[i];
         }
     }
@@ -24,7 +24,7 @@ $(document).ready(function(){
     $("#staffStatus").text(status);
     $("#staffPosition").text(position);
     $("#staffName").text(name);
-    $("#staffImage").attr("src", "/images/" + image);
+    $("#staffImage").attr("src", "./images/" + image);
 
     // 设置初始化主页面信息
     var url = location.href.replace("user", "info");

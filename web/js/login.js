@@ -36,7 +36,7 @@ function check(){
 
     var status = false;
     $.ajax({
-        url:"/login.do",
+        url:"login.do",
         type:"post",
         async:false,
         contentType:"application/json;charset=utf-8",
@@ -86,7 +86,7 @@ function checkReset(){
     }
 
     $.ajax({
-        url:"/reset.do",
+        url:"reset.do",
         type:"post",
         async:false,
         contentType:"application/json;charset=utf-8",

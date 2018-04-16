@@ -27,7 +27,7 @@ public class InfoController {
     /**
      * 跳转至个人信息页面
      */
-    @RequestMapping("/info")
+    @RequestMapping("info")
     public ModelAndView info(){
         return new ModelAndView("info");
     }
@@ -35,7 +35,7 @@ public class InfoController {
     /**
      * 取得个人信息返回至前端
      */
-    @RequestMapping("/staffInfo")
+    @RequestMapping("staffInfo")
     @ResponseBody
     public ResultBean staffInfo(){
         // 得到用户信息
