@@ -81,7 +81,7 @@ function fmtDate(timeStamp){
  */
 function addTd(trNode, result) {
     if(result.length === 16 && result.substring(0,4) === "6258"){
-        trNode.append("<td><a href='/businessQueryDetail.do?card=" + result + "' target='_blank'>" + result + "</a></td>");
+        trNode.append("<td><a href='businessQueryDetail.do?card=" + result + "' target='_blank'>" + result + "</a></td>");
     }else{
         trNode.append("<td>" + result + "</td>");
     }
