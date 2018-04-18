@@ -76,9 +76,9 @@
 <!-- 分页 -->
 <ul id="pages" class="pager" style="display: none">
     <li id="total" style="float: left">一共多少条记录</li>
-    <li class="disabled"><a href="#">上一页</a></li>
+    <li class="disabled" id="lastPage" style="cursor: pointer"><a onclick="lastPage()">上一页</a></li>
     <li id="pageNum">第几页</li>
-    <li><a href="#">下一页</a></li>
+    <li id="nextPage" style="cursor: pointer"><a onclick="nextPage()">下一页</a></li>
 </ul>
 
 </body>

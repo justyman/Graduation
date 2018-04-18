@@ -66,6 +66,7 @@ public class CommonController {
         map.put("list", queryList);
         map.put("pageNum", page.getPageNum());
         map.put("total", page.getTotal());
+        map.put("pages", page.getPages());
         resultBean.setMessage(JSON.toJSONString(map));
         resultBean.setResult(Constants.RESULT_SUCCESS);
         return resultBean;
