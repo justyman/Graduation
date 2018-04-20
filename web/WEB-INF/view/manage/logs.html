@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+</head>
+<body style="background-color: rgba(240,243,244,0.75); ">
+<!-- 导航栏 -->
+<div>
+    <h3 style="color: rgba(86,86,86,0.75); font-family: FontAwesome">您当前的位置：系统管理 -> 日志管理</h3>
+</div>
+<hr style="height:1px;border:none;border-top:1px solid #cccccc;"/>
+
+<!-- 查询条件 -->
+<form class="form-inline" role="form" style="margin-bottom: 20px">
+    <div class="form-group">
+        <label for="username">ID：</label><input type="text" id="username" class="form-control"
+                                                style="height: 30px;margin-right: 20px"
+                                                placeholder="默认所有">
+        <label for="phone">手机：</label><input type="text" id="phone" class="form-control"
+                                             style="height: 30px;margin-right: 20px"
+                                             placeholder="默认所有">
+        <label for="name">姓名：</label><input type="text" id="name" class="form-control"
+                                            style="height: 30px;margin-right: 20px"
+                                            placeholder="默认所有">
+        <label for="pageSize">每页：</label>
+        <select id="pageSize" class="form-control" style="height: 30px;padding-top: 3px;margin-right: 20px">
+            <option value="10">默认10条记录</option>
+            <option value="15">15条记录</option>
+            <option value="20">20条记录</option>
+        </select>
+        <input type="button" value="查询" onclick="query()" class="form-control" style="height: 30px;padding-top: 4px"/>
+        <ul id="tips" style="color: red;display: none">异常提示</ul>
+    </div>
+</form>
+
+<!-- 表格 -->
+<table class="table table-hover" id="queryTable" style="border:1px solid #cccccc;background-color: #eeeeee;display: none">
+    <thead>
+    <tr>
+        <th>用户ID</th>
+        <th>信息</th>
+        <th>时间</th>
+    </tr>
+    </thead>
+    <tbody id="queryResult">
+    </tbody>
+</table>
+
+<!-- 分页 -->
+<ul id="pages" class="pager" style="display: none">
+    <li id="total" style="float: left">一共多少条记录</li>
+    <li class="disabled"><a href="#">上一页</a></li>
+    <li id="pageNum">第几页</li>
+    <li><a href="#">下一页</a></li>
+</ul>
+
+</body>
+</html>
+<!-- JS -->
+<script src="./js/jquery.min.js"></script>

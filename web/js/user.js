@@ -25,6 +25,14 @@ $(document).ready(function(){
     $("#staffPosition").text(position);
     $("#staffName").text(name);
     $("#staffImage").attr("src", "./images/" + image);
+    // 权限配置
+    if(position === "管理员"){
+        $("#manage").css("display", "");
+    }else if(position === "业务人员"){
+        $("#business").css("display", "");
+    }else if(position === "审批人员"){
+        $("#approve").css("display", "");
+    }
 
     // 设置初始化主页面信息
     var url = location.href.replace("user", "info");
@@ -52,5 +60,29 @@ function businessQuery() {
  */
 function approveQuery() {
     var url = location.href.replace("user", "approveQuery");
+    $("#mainFrame").attr("src", url);
+}
+
+/**
+ * 跳转至用户管理页面
+ */
+function staffManage() {
+    var url = location.href.replace("user", "staffManage");
+    $("#mainFrame").attr("src", url);
+}
+
+/**
+ * 跳转至角色管理页面
+ */
+function positionManage() {
+    var url = location.href.replace("user", "positionManage");
+    $("#mainFrame").attr("src", url);
+}
+
+/**
+ * 跳转至日志管理页面
+ */
+function logManage() {
+    var url = location.href.replace("user", "logManage");
     $("#mainFrame").attr("src", url);
 }

@@ -1,6 +1,8 @@
 package cn.zl.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author ZL.
@@ -11,4 +13,27 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class ManageController {
+    /**
+     * 跳转至用户管理页面
+     */
+    @RequestMapping("staffManage")
+    public ModelAndView staffManage(){
+        return new ModelAndView("manage/staffs");
+    }
+
+    /**
+     * 跳转至角色管理页面
+     */
+    @RequestMapping("positionManage")
+    public ModelAndView positionManage(){
+        return new ModelAndView("manage/positions");
+    }
+
+    /**
+     * 跳转至日志管理页面
+     */
+    @RequestMapping("logManage")
+    public ModelAndView logManage(){
+        return new ModelAndView("manage/logs");
+    }
 }

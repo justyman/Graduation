@@ -66,21 +66,20 @@
                         <li><a onclick="info()">个人信息</a></li>
                     </ul>
                 </li>
-                <li class="ripple">
+                <li class="ripple" id="manage" style="display: none;">
                     <a class="tree-toggle nav-header">
                         <span class="fa-tags fa"></span>
                         系统管理
                         <span class="fa-angle-right fa right-arrow text-right"></span>
                     </a>
                     <ul class="nav nav-list tree">
-                        <li><a>用户管理</a></li>
-                        <li><a>角色管理</a></li>
-                        <li><a>权限管理</a></li>
+                        <li><a onclick="staffManage()">用户管理</a></li>
+                        <li><a onclick="positionManage()">角色管理</a></li>
                         <li><a>公告管理</a></li>
-                        <li><a>日志管理</a></li>
+                        <li><a onclick="logManage()">日志管理</a></li>
                     </ul>
                 </li>
-                <li class="ripple">
+                <li class="ripple" id="business" style="display: none">
                     <a class="tree-toggle nav-header">
                         <span class="fa-list-alt fa"></span>
                         业务管理
@@ -93,7 +92,7 @@
                         <li><a>批量上传</a></li>
                     </ul>
                 </li>
-                <li class="ripple">
+                <li class="ripple" id="approve" style="display: none">
                     <a class="tree-toggle nav-header">
                         <span class="fa-pencil-square-o fa"></span>
                         审批管理
