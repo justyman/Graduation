@@ -67,7 +67,8 @@ public class LoginController {
             subject.login(token);
         } catch (AuthenticationException e) {
             resultBean.setResult(Constants.RESULT_FAILURE);
-            log.info("shiro异常：" + e.getMessage().substring(0, 200));
+            resultBean.setMessage(e.getMessage());
+            log.info("登陆失败：" + (e.getMessage().length() > 200 ? e.getMessage().substring(0, 200) : e.getMessage()));
             return resultBean;
         }
         // 得到用户信息

@@ -60,7 +60,7 @@ public class CommonController {
             page = (Page)queryList;
         } catch (Exception e) {
             resultBean.setResult(Constants.RESULT_FAILURE);
-            log.info("查询工单异常：" + e.getMessage().substring(0, 200));
+            log.info("查询工单异常：" + (e.getMessage().length() > 200 ? e.getMessage().substring(0, 200) : e.getMessage()));
             return resultBean;
         }
         map.put("list", queryList);
@@ -85,7 +85,7 @@ public class CommonController {
             detail = commonService.getDetail(card);
         } catch (Exception e) {
             resultBean.setResult(Constants.RESULT_FAILURE);
-            log.info("查询卡号{" + card + "}异常：" + e.getMessage());
+            log.info("查询卡号{" + card + "}异常：" + (e.getMessage().length() > 200 ? e.getMessage().substring(0, 200) : e.getMessage()));
             return resultBean;
         }
         if(detail == null){
