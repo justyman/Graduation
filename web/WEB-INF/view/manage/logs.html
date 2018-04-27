@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <!-- CSS -->
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/manage/staffs.css">
 </head>
 <body style="background-color: rgba(240,243,244,0.75); ">
 <!-- 导航栏 -->
@@ -20,7 +21,7 @@
                                                 placeholder="默认所有">
         <label for="time">日志时间：</label><input type="text" id="time" class="form-control"
                                              style="height: 30px;margin-right: 20px"
-                                             placeholder="默认所有">
+                                             placeholder="格式yyyy-MM-dd">
         <label for="pageSize">每页：</label>
         <select id="pageSize" class="form-control" style="height: 30px;padding-top: 3px;margin-right: 20px">
             <option value="10">默认10条记录</option>
@@ -36,9 +37,9 @@
 <table class="table table-hover" id="queryTable" style="border:1px solid #cccccc;background-color: #eeeeee;display: none">
     <thead>
     <tr>
-        <th>用户ID</th>
-        <th>操作时间</th>
-        <th>日志信息</th>
+        <th width="5%">用户ID</th>
+        <th width="10%">操作时间</th>
+        <th width="75%">日志信息</th>
     </tr>
     </thead>
     <tbody id="queryResult">
@@ -48,12 +49,13 @@
 <!-- 分页 -->
 <ul id="pages" class="pager" style="display: none">
     <li id="total" style="float: left">一共多少条记录</li>
-    <li class="disabled"><a href="#">上一页</a></li>
+    <li class="disabled" id="lastPage" style="cursor: pointer"><a onclick="lastPage()">上一页</a></li>
     <li id="pageNum">第几页</li>
-    <li><a href="#">下一页</a></li>
+    <li id="nextPage" style="cursor: pointer"><a onclick="nextPage()">下一页</a></li>
 </ul>
 
 </body>
 </html>
 <!-- JS -->
 <script src="./js/jquery.min.js"></script>
+<script src="./js/manage/logs.js"></script>

@@ -262,6 +262,13 @@ function fmtDate(timeStamp){
 }
 
 /**
+ * 得到当前页码
+ */
+function getPageNum() {
+    return $("#pageNum").text().replace(/[^0-9]/ig,"");
+}
+
+/**
  * 生成td
  */
 function addTd(trNode, result) {

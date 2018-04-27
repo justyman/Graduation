@@ -1,6 +1,8 @@
 package cn.zl.controller;
 
+import cn.zl.domain.Log;
 import cn.zl.domain.Staff;
+import cn.zl.pojo.QueryLogBean;
 import cn.zl.pojo.QueryStaffBean;
 import cn.zl.pojo.ResultBean;
 import cn.zl.service.impl.ManageServiceImpl;
@@ -88,6 +90,42 @@ public class ManageController {
         } catch (Exception e) {
             resultBean.setResult(Constants.RESULT_FAILURE);
             log.info("查询用户信息异常：" + (e.getMessage().length() > 200 ? e.getMessage().substring(0, 200) : e.getMessage()));
+            return resultBean;
+        }
+        map.put("list", queryList);
+        map.put("pageNum", page.getPageNum());
+        map.put("total", page.getTotal());
+        map.put("pages", page.getPages());
+        resultBean.setMessage(JSON.toJSONString(map));
+        resultBean.setResult(Constants.RESULT_SUCCESS);
+        return resultBean;
+    }
+
+    /**
+     * 按条件分页查询系统日志信息
+     */
+    @RequestMapping("queryLog.do")
+    @ResponseBody
+    public ResultBean queryLog(@RequestBody QueryLogBean queryLogBean){
+        MDC.put("username", ((Staff) SessionUtil.getStaffSession()).getUsername());
+        ResultBean resultBean = new ResultBean();
+        PageInfo pageInfo = new PageInfo();
+        Log logs = new Log();
+        Map<String, Object> map = new HashMap<String, Object>();
+        Page page;
+        List queryList;
+        try {
+            BeanUtils.copyProperties(logs, queryLogBean);
+            BeanUtils.copyProperties(pageInfo, queryLogBean);
+            queryList = manageService.queryLogs(logs, pageInfo);
+            page = (Page)queryList;
+        } catch (Exception e) {
+            resultBean.setResult(Constants.RESULT_FAILURE);
+            log.info("查询日志信息异常：" + (e.getMessage().length() > 200 ? e.getMessage().substring(0, 200) : e.getMessage()));
+            return resultBean;
+        }
+        if(queryList == null){
+            resultBean.setResult(Constants.RESULT_SUCCESS);
             return resultBean;
         }
         map.put("list", queryList);

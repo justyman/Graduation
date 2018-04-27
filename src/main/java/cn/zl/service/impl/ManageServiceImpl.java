@@ -1,6 +1,9 @@
 package cn.zl.service.impl;
 
+import cn.zl.dao.LogMapper;
 import cn.zl.dao.StaffMapper;
+import cn.zl.domain.Log;
+import cn.zl.domain.LogExample;
 import cn.zl.domain.Staff;
 import cn.zl.domain.StaffExample;
 import cn.zl.service.ManageService;
@@ -11,6 +14,9 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,6 +30,9 @@ import java.util.List;
 public class ManageServiceImpl implements ManageService{
     @Resource
     private StaffMapper staffMapper;
+
+    @Resource
+    private LogMapper logMapper;
 
     public List<Staff> queryStaffs(Staff staff, PageInfo pageInfo) {
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
@@ -46,6 +55,25 @@ public class ManageServiceImpl implements ManageService{
         }
         List<Staff> staffList = staffMapper.selectByExample(example);
         return staffList != null && staffList.size() > 0 ? staffList : null;
+    }
+
+    public List<Log> queryLogs(Log logs, PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+        LogExample example = new LogExample();
+        LogExample.Criteria c = example.createCriteria();
+        if(!StringUtil.isEmpty(logs.getUsername())){
+            c.andUsernameEqualTo(logs.getUsername());
+        }
+        // 查询当天内的日志信息
+        if(!logs.getTime().toString().equals("Mon Jan 01 08:00:00 CST 2018")){
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(logs.getTime());
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            c.andTimeBetween(logs.getTime(), calendar.getTime());
+        }
+        example.setOrderByClause("time");
+        List<Log> logList = logMapper.selectByExample(example);
+        return logList != null && logList.size() > 0 ? logList : null;
     }
 
     public void freezeStaff(String username) throws Exception {

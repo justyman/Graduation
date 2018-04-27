@@ -1,7 +1,5 @@
 var username;
-var name;
-var phone;
-var status;
+var time;
 var pageSize;
 var pages;
 
@@ -13,22 +11,30 @@ function query() {
     $("#pages").css("display", "none");
     $("#queryTable").css("display", "none");
     $("#queryResult").empty();
-    
+
     username = $("#username").val();
-    name = $("#name").val();
-    phone = $("#phone").val();
-    status = $("#status").val();
+    time = $("#time").val() === "" ? "2018-01-01" : $("#time").val();
     pageSize = $("#pageSize").val();
 
+    if(time.length !== 10 || time.charAt(4) !== "-" || time.charAt(7) !== "-" ||
+        isNaN(time.substring(0,4)) || isNaN(time.substring(5,7)) || isNaN(time.substring(8,10))){
+        $("#tips").text("日期输入格式不正确").css("display", "");
+        return ;
+    }
+
     $.ajax({
-        url:"queryStaff.do",
+        url:"queryLog.do",
         type:"post",
         async:true,
         contentType:"application/json;charset=utf-8",
-        data:JSON.stringify({"username":username,"phone":phone,"name":name,"status":status,"pageNum":1,"pageSize":pageSize}),
+        data:JSON.stringify({"username":username,"time":time,"pageNum":1,"pageSize":pageSize}),
         success:function (data) {
             if(data.result === "200"){
                 var json = JSON.parse(data.message);
+                if(json === null || json.length === 0){
+                    $("#tips").text("查无结果").css("display", "");
+                    return ;
+                }
                 var list = eval(json.list);
                 if (list === null || list.length === 0) {
                     $("#tips").text("查无结果").css("display", "");
@@ -37,14 +43,8 @@ function query() {
                     for (var i = 0; i < list.length; i++) {
                         var trNode = $("<tr/>");
                         addTd(trNode, list[i].username);
-                        addTd(trNode, list[i].password);
-                        addTd(trNode, list[i].name);
-                        addTd(trNode, list[i].sex);
-                        addTd(trNode, list[i].phone);
-                        addTd(trNode, fmtDate(list[i].entry));
-                        addTd(trNode, list[i].position);
-                        addTd(trNode, list[i].status + list[i].username);
-                        addTd(trNode, "option" + list[i].status + list[i].username);
+                        addTd(trNode, fmtDate(list[i].time));
+                        addTd(trNode, list[i].message);
                         $("#queryResult").append(trNode);
                     }
                     $("#queryTable").css("display", "");
@@ -83,11 +83,11 @@ function lastPage() {
     }
     $("#queryResult").empty();
     $.ajax({
-        url:"queryStaff.do",
+        url:"queryLog.do",
         type:"post",
         async:true,
         contentType:"application/json;charset=utf-8",
-        data:JSON.stringify({"username":username,"phone":phone,"name":name,"status":status,"pageNum":lastPageNum,"pageSize":pageSize}),
+        data:JSON.stringify({"username":username,"time":time,"pageNum":lastPageNum,"pageSize":pageSize}),
         success:function(data){
             if(data.result === "200"){
                 var json = JSON.parse(data.message);
@@ -99,14 +99,8 @@ function lastPage() {
                     for (var i = 0; i < list.length; i++) {
                         var trNode = $("<tr/>");
                         addTd(trNode, list[i].username);
-                        addTd(trNode, list[i].password);
-                        addTd(trNode, list[i].name);
-                        addTd(trNode, list[i].sex);
-                        addTd(trNode, list[i].phone);
-                        addTd(trNode, fmtDate(list[i].entry));
-                        addTd(trNode, list[i].position);
-                        addTd(trNode, list[i].status + list[i].username);
-                        addTd(trNode, "option" + list[i].status + list[i].username);
+                        addTd(trNode, fmtDate(list[i].time));
+                        addTd(trNode, list[i].message);
                         $("#queryResult").append(trNode);
                     }
                     // 分页结果
@@ -136,11 +130,11 @@ function nextPage() {
     }
     $("#queryResult").empty();
     $.ajax({
-        url:"queryStaff.do",
+        url:"queryLog.do",
         type:"post",
         async:true,
         contentType:"application/json;charset=utf-8",
-        data:JSON.stringify({"username":username,"phone":phone,"name":name,"status":status,"pageNum":nextPageNum,"pageSize":pageSize}),
+        data:JSON.stringify({"username":username,"time":time,"pageNum":nextPageNum,"pageSize":pageSize}),
         success:function(data){
             if(data.result === "200"){
                 var json = JSON.parse(data.message);
@@ -152,14 +146,8 @@ function nextPage() {
                     for (var i = 0; i < list.length; i++) {
                         var trNode = $("<tr/>");
                         addTd(trNode, list[i].username);
-                        addTd(trNode, list[i].password);
-                        addTd(trNode, list[i].name);
-                        addTd(trNode, list[i].sex);
-                        addTd(trNode, list[i].phone);
-                        addTd(trNode, fmtDate(list[i].entry));
-                        addTd(trNode, list[i].position);
-                        addTd(trNode, list[i].status + list[i].username);
-                        addTd(trNode, "option" + list[i].status + list[i].username);
+                        addTd(trNode, fmtDate(list[i].time));
+                        addTd(trNode, list[i].message);
                         $("#queryResult").append(trNode);
                     }
                     // 分页结果
@@ -176,46 +164,6 @@ function nextPage() {
 }
 
 /**
- * 冻结用户
- */
-function freeze(username) {
-    $.ajax({
-        url:"freezeStaff.do?username=" + username,
-        type:"post",
-        async:true,
-        contentType:"application/json;charset=utf-8",
-        success:function (data) {
-            if(data.result === "200"){
-                $("#btn" + username).text("冻结成功").css("color", "green");
-                $("#" + username).text("冻结");
-            }else if(data.result === "000"){
-                $("#btn" + username).text("冻结异常，请查看日志详细信息").css("color", "red");
-            }
-        }
-    });
-}
-
-/**
- * 解冻用户
- */
-function normal(username) {
-    $.ajax({
-        url:"normalStaff.do?username=" + username,
-        type:"post",
-        async:true,
-        contentType:"application/json;charset=utf-8",
-        success:function (data) {
-            if(data.result === "200"){
-                $("#btn" + username).text("解冻成功").css("color", "green");
-                $("#" + username).text("正常");
-            }else if(data.result === "000"){
-                $("#btn" + username).text("解冻异常，请查看日志详细信息").css("color", "red");
-            }
-        }
-    });
-}
-
-/**
  * 时间戳->yyyy-MM-dd
  */
 function fmtDate(timeStamp){
@@ -226,7 +174,10 @@ function fmtDate(timeStamp){
     m = m < 10 ? ('0' + m) : m;
     var d = date.getDate();
     d = d < 10 ? ('0' + d) : d;
-    return y+"-"+m+"-"+d;
+    var h = date.getHours();
+    var min = date.getMinutes();
+    var s = date.getSeconds();
+    return y+"-"+m+"-"+d+" "+addZero(h)+":"+addZero(min)+":"+addZero(s);
 }
 
 /**
@@ -237,26 +188,18 @@ function getPageNum() {
 }
 
 /**
+ * 自动补零至两位数
+ */
+function addZero(num) {
+    if(num.toString().length === 1){
+        return "0"+num.toString();
+    }
+    return num.toString();
+}
+
+/**
  * 生成td
  */
 function addTd(trNode, result) {
-    if(result.length >= 7 && result.substring(0, 6) === "option"){
-        if(result.charAt(6) === "Y"){
-            trNode.append("<td id='btn"+result.substring(7, result.length)+"'><button type='button' class='btn btn-primary' style='padding-top: 0' onclick='freeze(\""+result.substring(7, result.length)+"\")'>冻结</button></td>");
-        }else{
-            trNode.append("<td id='btn"+result.substring(7, result.length)+"'><button type='button' class='btn btn-primary' style='padding-top: 0' onclick='normal(\""+result.substring(7, result.length)+"\")'>解冻</button></td>");
-        }
-    }else if(result === 0){
-        trNode.append("<td>管理员</td>");
-    }else if(result === 1){
-        trNode.append("<td>业务人员</td>");
-    }else if(result === 2){
-        trNode.append("<td>审批人员</td>");
-    }else if(result.charAt(0) === "Y"){
-        trNode.append("<td id='"+result.substring(1, result.length)+"'>正常</td>");
-    }else if(result.charAt(0) === "N"){
-        trNode.append("<td id='"+result.substring(1, result.length)+"'>冻结</td>");
-    }else{
-        trNode.append("<td>" + result + "</td>");
-    }
+    trNode.append("<td>" + result + "</td>");
 }

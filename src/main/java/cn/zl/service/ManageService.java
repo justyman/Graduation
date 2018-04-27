@@ -1,5 +1,6 @@
 package cn.zl.service;
 
+import cn.zl.domain.Log;
 import cn.zl.domain.Staff;
 import com.github.pagehelper.PageInfo;
 
@@ -17,6 +18,11 @@ public interface ManageService {
      * 按条件查询员工信息
      */
     List<Staff> queryStaffs(Staff staff, PageInfo pageInfo);
+
+    /**
+     * 按条件查询日志信息
+     */
+    List<Log> queryLogs(Log logs, PageInfo pageInfo);
 
     /**
      * 冻结指定用户
