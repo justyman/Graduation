@@ -41,6 +41,9 @@ public class ManageServiceImpl implements ManageService{
         if(!StringUtil.isEmpty(staff.getStatus())){
             c.andStatusEqualTo(staff.getStatus());
         }
+        if(staff.getPosition() != -1){
+            c.andPositionEqualTo(staff.getPosition());
+        }
         List<Staff> staffList = staffMapper.selectByExample(example);
         return staffList != null && staffList.size() > 0 ? staffList : null;
     }
@@ -64,6 +67,17 @@ public class ManageServiceImpl implements ManageService{
             throw new Exception("用户已解冻！");
         }
         staff.setStatus("Y");
+        staffMapper.updateByPrimaryKey(staff);
+    }
+
+    public void changePosition(String username, int position) throws Exception {
+        Staff staff = staffMapper.selectByPrimaryKey(username);
+        if(staff == null){
+            throw new Exception("用户名不存在！");
+        }else if(position == staff.getPosition()){
+            throw new Exception("用户已是当前职位");
+        }
+        staff.setPosition(position);
         staffMapper.updateByPrimaryKey(staff);
     }
 }

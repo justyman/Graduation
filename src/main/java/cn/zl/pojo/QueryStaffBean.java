@@ -14,6 +14,7 @@ public class QueryStaffBean extends PageInfo{
     private String phone;
     private String name;
     private String status;
+    private String position;
 
     public String getUsername() {
         return username;
@@ -45,5 +46,13 @@ public class QueryStaffBean extends PageInfo{
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 }

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <!-- CSS -->
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/manage/staffs.css">
 </head>
 <body style="background-color: rgba(240,243,244,0.75); ">
 <!-- 导航栏 -->
@@ -27,9 +28,9 @@
         <label for="position">职位：</label>
         <select id="position" class="form-control" style="height: 30px;padding-top: 3px;margin-right: 20px">
             <option value="">默认所有</option>
-            <option value="0">管理员</option>
             <option value="1">业务人员</option>
             <option value="2">审批人员</option>
+            <option value="0">管理员</option>
         </select>
         <label for="pageSize">每页：</label>
         <select id="pageSize" class="form-control" style="height: 30px;padding-top: 3px;margin-right: 20px">
@@ -54,7 +55,7 @@
         <th>入职日期</th>
         <th>用户状态</th>
         <th>当前职位</th>
-        <th>修改职位</th>
+        <th>修改用户职位</th>
     </tr>
     </thead>
     <tbody id="queryResult">
@@ -64,12 +65,13 @@
 <!-- 分页 -->
 <ul id="pages" class="pager" style="display: none">
     <li id="total" style="float: left">一共多少条记录</li>
-    <li class="disabled"><a href="#">上一页</a></li>
+    <li class="disabled" id="lastPage" style="cursor: pointer"><a onclick="lastPage()">上一页</a></li>
     <li id="pageNum">第几页</li>
-    <li><a href="#">下一页</a></li>
+    <li id="nextPage" style="cursor: pointer"><a onclick="nextPage()">下一页</a></li>
 </ul>
 
 </body>
 </html>
 <!-- JS -->
 <script src="./js/jquery.min.js"></script>
+<script src="./js/manage/positions.js"></script>

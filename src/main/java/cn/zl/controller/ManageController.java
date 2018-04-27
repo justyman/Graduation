@@ -5,7 +5,9 @@ import cn.zl.pojo.QueryStaffBean;
 import cn.zl.pojo.ResultBean;
 import cn.zl.service.impl.ManageServiceImpl;
 import cn.zl.utils.Constants;
+import cn.zl.utils.PropertiesUtil;
 import cn.zl.utils.SessionUtil;
+import cn.zl.utils.StringUtil;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -75,6 +77,9 @@ public class ManageController {
         Map<String, Object> map = new HashMap<String, Object>();
         Page page;
         List queryList;
+        if(StringUtil.isEmpty(queryStaffBean.getPosition())){
+            queryStaffBean.setPosition("-1");
+        }
         try {
             BeanUtils.copyProperties(staff, queryStaffBean);
             BeanUtils.copyProperties(pageInfo, queryStaffBean);
@@ -109,6 +114,7 @@ public class ManageController {
             log.info("冻结用户失败：" + (e.getMessage().length() > 200 ? e.getMessage().substring(0, 200) : e.getMessage()));
             return resultBean;
         }
+        log.info("冻结用户{" + username + "}成功");
         resultBean.setResult(Constants.RESULT_SUCCESS);
         return resultBean;
     }
@@ -127,6 +133,31 @@ public class ManageController {
             resultBean.setResult(Constants.RESULT_FAILURE);
             log.info("解冻用户失败：" + (e.getMessage().length() > 200 ? e.getMessage().substring(0, 200) : e.getMessage()));
             return resultBean;
+        }
+        log.info("解冻用户{" + username + "}成功");
+        resultBean.setResult(Constants.RESULT_SUCCESS);
+        return resultBean;
+    }
+
+    /**
+     * 修改用户职位
+     */
+    @RequestMapping("changePosition.do")
+    @ResponseBody
+    public ResultBean changePosition(String username, int position){
+        MDC.put("username", ((Staff) SessionUtil.getStaffSession()).getUsername());
+        ResultBean resultBean = new ResultBean();
+        try {
+            manageService.changePosition(username, position);
+        } catch (Exception e) {
+            resultBean.setResult(Constants.RESULT_FAILURE);
+            log.info("修改用户职位失败：" + (e.getMessage().length() > 200 ? e.getMessage().substring(0, 200) : e.getMessage()));
+            return resultBean;
+        }
+        try {
+            log.info("修改用户{" + username + "}职位成功，当前职位为" + PropertiesUtil.getProperty(String.valueOf(position)));
+        } catch (Exception e) {
+            log.info("配置文件读取异常");
         }
         resultBean.setResult(Constants.RESULT_SUCCESS);
         return resultBean;

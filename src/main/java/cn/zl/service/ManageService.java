@@ -27,4 +27,9 @@ public interface ManageService {
      * 解冻指定用户
      */
     void normalStaff(String username) throws Exception;
+
+    /**
+     * 修改指定用户职位
+     */
+    void changePosition(String username, int position) throws Exception;
 }
