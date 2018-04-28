@@ -1,5 +1,6 @@
 package cn.zl.service;
 
+import cn.zl.domain.Customer;
 import cn.zl.domain.extend.CaseExtend;
 import cn.zl.pojo.Detail;
 import com.github.pagehelper.PageInfo;
@@ -24,4 +25,9 @@ public interface CommonService {
      * 按卡号查询详细信息
      */
     Detail getDetail(String card) throws Exception;
+
+    /**
+     * 查询客户信息
+     */
+    List<Customer> getCustomer(Customer customer, PageInfo pageInfo) throws Exception;
 }

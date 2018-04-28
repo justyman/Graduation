@@ -1,9 +1,11 @@
 package cn.zl.controller;
 
+import cn.zl.domain.Customer;
 import cn.zl.domain.Staff;
 import cn.zl.domain.extend.CaseExtend;
 import cn.zl.pojo.Detail;
 import cn.zl.pojo.QueryCaseBean;
+import cn.zl.pojo.QueryCusBean;
 import cn.zl.pojo.ResultBean;
 import cn.zl.service.CommonService;
 import cn.zl.utils.Constants;
@@ -94,6 +96,38 @@ public class CommonController {
             return resultBean;
         }
         resultBean.setMessage(JSON.toJSONString(detail));
+        resultBean.setResult(Constants.RESULT_SUCCESS);
+        return resultBean;
+    }
+
+    /**
+     * 查询客户信息
+     */
+    @RequestMapping("queryCustomer")
+    @ResponseBody
+    public ResultBean queryCustomer(@RequestBody QueryCusBean queryCusBean){
+        MDC.put("username", ((Staff)SessionUtil.getStaffSession()).getUsername());
+        ResultBean resultBean = new ResultBean();
+        Customer customer = new Customer();
+        PageInfo pageInfo = new PageInfo();
+        Map<String, Object> map = new HashMap<String, Object>();
+        Page page;
+        List queryList;
+        try {
+            BeanUtils.copyProperties(customer, queryCusBean);
+            BeanUtils.copyProperties(pageInfo, queryCusBean);
+            queryList = commonService.getCustomer(customer, pageInfo);
+            page = (Page)queryList;
+        } catch (Exception e) {
+            resultBean.setResult(Constants.RESULT_FAILURE);
+            log.info("查询客户信息异常：" + (e.getMessage().length() > 200 ? e.getMessage().substring(0, 200) : e.getMessage()));
+            return resultBean;
+        }
+        map.put("list", queryList);
+        map.put("pageNum", page.getPageNum());
+        map.put("total", page.getTotal());
+        map.put("pages", page.getPages());
+        resultBean.setMessage(JSON.toJSONString(map));
         resultBean.setResult(Constants.RESULT_SUCCESS);
         return resultBean;
     }

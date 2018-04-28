@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/approve/queryCase.css">
+</head>
+<body style="background-color: rgba(240,243,244,0.75); ">
+<!-- 导航栏 -->
+<div>
+    <h3 style="color: rgba(86,86,86,0.75); font-family: FontAwesome">您当前的位置：审批管理 -> 评估信用</h3>
+</div>
+<hr style="height:1px;border:none;border-top:1px solid #cccccc;"/>
+
+<!-- 查询条件 -->
+<form class="form-inline" role="form" style="margin-bottom: 20px">
+    <div class="form-group">
+        <label for="card">卡号：</label><input type="text" id="card" class="form-control"
+                                            style="height: 30px;margin-right: 20px"
+                                            placeholder="默认所有">
+        <label for="idCard">身份证：</label><input type="text" id="idCard" class="form-control"
+                                               style="height: 30px;margin-right: 20px"
+                                               placeholder="默认所有">
+        <label for="name">姓名：</label><input type="text" id="name" class="form-control"
+                                               style="height: 30px;margin-right: 20px"
+                                               placeholder="默认所有">
+        <label for="pageSize">每页：</label>
+        <select id="pageSize" class="form-control" style="height: 30px;padding-top: 3px;margin-right: 20px">
+            <option value="10">默认10条记录</option>
+            <option value="15">15条记录</option>
+            <option value="20">20条记录</option>
+        </select>
+        <input type="button" value="查询" onclick="query()" class="form-control" style="height: 30px;padding-top: 4px"/>
+        <ul id="tips" style="color: red;display: none">异常提示</ul>
+    </div>
+</form>
+
+<!-- 表格 -->
+<table class="table table-hover table-bordered" id="queryTable" style="border:1px solid #cccccc;background-color: #eeeeee;display: none">
+    <thead>
+    <tr>
+        <th>卡号</th>
+        <th>客户姓名</th>
+        <th>客户性别</th>
+        <th>手机号</th>
+        <th>身份证</th>
+        <th>偿还等级</th>
+        <th>当前信用分数</th>
+        <th>信用评估</th>
+    </tr>
+    </thead>
+    <tbody id="queryResult">
+    </tbody>
+</table>
+
+<!-- 分页 -->
+<ul id="pages" class="pager" style="display: none">
+    <li id="total" style="float: left">一共多少条记录</li>
+    <li class="disabled" id="lastPage" style="cursor: pointer"><a onclick="lastPage()">上一页</a></li>
+    <li id="pageNum">第几页</li>
+    <li id="nextPage" style="cursor: pointer"><a onclick="nextPage()">下一页</a></li>
+</ul>
+
+</body>
+</html>
+<!-- JS -->
+<script src="./js/jquery.min.js"></script>
+<script src="./js/approve/approveCredit.js"></script>

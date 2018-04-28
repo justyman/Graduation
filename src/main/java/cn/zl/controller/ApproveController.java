@@ -44,4 +44,12 @@ public class ApproveController {
     public ModelAndView exception(){
         return new ModelAndView("approve/exceptionCase");
     }
+
+    /**
+     * 跳转至信用评估页面
+     */
+    @RequestMapping("approveCredit")
+    public ModelAndView credit(){
+        return new ModelAndView("approve/approveCredit");
+    }
 }

@@ -1,11 +1,15 @@
 package cn.zl.service.impl;
 
 import cn.zl.dao.CommonMapper;
+import cn.zl.dao.CustomerMapper;
+import cn.zl.domain.Customer;
+import cn.zl.domain.CustomerExample;
 import cn.zl.domain.extend.CaseExtend;
 import cn.zl.pojo.Detail;
 import cn.zl.service.CommonService;
 import cn.zl.utils.Constants;
 import cn.zl.utils.PropertiesUtil;
+import cn.zl.utils.StringUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
@@ -25,10 +29,9 @@ public class CommonServiceImpl implements CommonService{
     @Resource
     private CommonMapper commonMapper;
 
-    /**
-     * 按条件查询信用卡工单信息
-     * @return 查询结果List集合
-     */
+    @Resource
+    private CustomerMapper customerMapper;
+
     public List<CaseExtend> getCase(CaseExtend cases, PageInfo pageInfo) throws Exception{
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         List<CaseExtend> casesList = commonMapper.selectCases(cases);
@@ -41,10 +44,6 @@ public class CommonServiceImpl implements CommonService{
         return casesList;
     }
 
-    /**
-     * 按卡号查询详细信息
-     * @return 详细信息
-     */
     public Detail getDetail(String card) throws Exception{
         Detail detail = commonMapper.selectDetail(card).get(0);
         if(detail != null){
@@ -54,5 +53,22 @@ public class CommonServiceImpl implements CommonService{
             detail.setStatus(PropertiesUtil.getProperty(Constants.CASE_PREFIX + detail.getStatus()));
         }
         return detail;
+    }
+
+    public List<Customer> getCustomer(Customer customer, PageInfo pageInfo) throws Exception {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+        CustomerExample example = new CustomerExample();
+        CustomerExample.Criteria c = example.createCriteria();
+        if(!StringUtil.isEmpty(customer.getId())){
+            c.andIdEqualTo(customer.getId());
+        }
+        if(!StringUtil.isEmpty(customer.getCard())){
+            c.andCardEqualTo(customer.getCard());
+        }
+        if(!StringUtil.isEmpty(customer.getName())){
+            c.andNameLike(customer.getName());
+        }
+        List<Customer> customerList = customerMapper.selectByExample(example);
+        return customerList != null && customerList.size() > 0 ? customerList : null;
     }
 }
