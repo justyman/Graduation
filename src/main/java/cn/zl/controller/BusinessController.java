@@ -28,4 +28,12 @@ public class BusinessController {
     public ModelAndView detail(){
         return new ModelAndView("business/detail");
     }
+
+    /**
+     * 跳转至异常信息页面
+     */
+    @RequestMapping("businessException")
+    public ModelAndView exception(){
+        return new ModelAndView("business/exceptionCase");
+    }
 }

@@ -114,3 +114,35 @@ function noticeManage() {
     var url = location.href.replace("user", "noticeManage");
     $("#mainFrame").attr("src", url);
 }
+
+/**
+ * 跳转至审批信息页面
+ */
+function approveCard() {
+    var url = location.href.replace("user", "approveCard");
+    $("#mainFrame").attr("src", url);
+}
+
+/**
+ * 跳转至信用评估页面
+ */
+function approveCustomer() {
+    var url = location.href.replace("user", "approveCustomer");
+    $("#mainFrame").attr("src", url);
+}
+
+/**
+ * 跳转至异常信息页面
+ */
+function approveException() {
+    var url = location.href.replace("user", "approveException");
+    $("#mainFrame").attr("src", url);
+}
+
+/**
+ * 跳转至异常信息页面
+ */
+function businessException() {
+    var url = location.href.replace("user", "businessException");
+    $("#mainFrame").attr("src", url);
+}

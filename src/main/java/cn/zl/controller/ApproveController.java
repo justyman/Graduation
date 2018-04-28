@@ -28,4 +28,20 @@ public class ApproveController {
     public ModelAndView detail(){
         return new ModelAndView("approve/detail");
     }
+
+    /**
+     * 跳转至审批信息页面
+     */
+    @RequestMapping("approveCard")
+    public ModelAndView card(){
+        return new ModelAndView("approve/approveCase");
+    }
+
+    /**
+     * 跳转至异常信息页面
+     */
+    @RequestMapping("approveException")
+    public ModelAndView exception(){
+        return new ModelAndView("approve/exceptionCase");
+    }
 }

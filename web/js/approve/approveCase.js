@@ -1,10 +1,59 @@
-var card;
-var id;
-var channel;
-var status;
-var deadline;
+var card = "";
+var id = "";
+var channel = "";
+var deadline = 7;
 var pageSize;
 var pages;
+
+$(document).ready(function () {
+    pageSize = 10;
+    $.ajax({
+        url:"queryCase.do",
+        type:"post",
+        async:true,
+        contentType:"application/json;charset=utf-8",
+        data:JSON.stringify({"card":card,"id":id,"channel":channel,"status":"N","deadline":deadline,"pageNum":1,"pageSize":pageSize}),
+        success:function(data){
+            if(data.result === "200"){
+                var json = JSON.parse(data.message);
+                var list = eval(json.list);
+                if (list === null || list.length === 0) {
+                    $("#tips").text("查无结果").css("display", "");
+                } else {
+                    // 查询结果
+                    for (var i = 0; i < list.length; i++) {
+                        var trNode = $("<tr/>");
+                        addTd(trNode, list[i].card);
+                        addTd(trNode, list[i].cusName);
+                        addTd(trNode, list[i].channelName);
+                        addTd(trNode, list[i].businessName);
+                        addTd(trNode, list[i].status);
+                        addTd(trNode, list[i].approveName);
+                        addTd(trNode, fmtDate(list[i].businessTime));
+                        addTd(trNode, list[i].deadline);
+                        $("#queryResult").append(trNode);
+                    }
+                    $("#queryTable").css("display", "");
+                    // 分页结果
+                    $("#total").text("一共" + json.total + "条记录");
+                    $("#pageNum").text("第" + json.pageNum + "页");
+                    $("#pages").css("display", "");
+                    pages = json.pages;
+                    $("#lastPage").addClass("disabled");
+                    $("#nextPage").removeClass("disabled");
+                    if(json.total <= pageSize){
+                        $("#nextPage").addClass("disabled");
+                    }
+                }
+            }else if(data.result === "000"){
+                $("#tips").text("查询失败").css("display", "");
+            }
+        },
+        error:function(){
+            $("#tips").text("数据库异常，请联系管理员").css("display", "");
+        }
+    });
+});
 
 /**
  * 查询
@@ -24,7 +73,6 @@ function query() {
 
     id = $("#idCard").val();
     channel = $("#channel").val();
-    status = $("#status").val();
     deadline = $("#deadline").val();
     pageSize = $("#pageSize").val();
 
@@ -33,7 +81,7 @@ function query() {
         type:"post",
         async:true,
         contentType:"application/json;charset=utf-8",
-        data:JSON.stringify({"card":card,"id":id,"channel":channel,"status":status,"deadline":deadline,"pageNum":1,"pageSize":pageSize}),
+        data:JSON.stringify({"card":card,"id":id,"channel":channel,"status":"N","deadline":deadline,"pageNum":1,"pageSize":pageSize}),
         success:function(data){
             if(data.result === "200"){
                 var json = JSON.parse(data.message);
@@ -94,7 +142,7 @@ function lastPage() {
         type:"post",
         async:true,
         contentType:"application/json;charset=utf-8",
-        data:JSON.stringify({"card":card,"id":id,"channel":channel,"status":status,"deadline":deadline,"pageNum":lastPageNum,"pageSize":pageSize}),
+        data:JSON.stringify({"card":card,"id":id,"channel":channel,"status":"N","deadline":deadline,"pageNum":lastPageNum,"pageSize":pageSize}),
         success:function(data){
             if(data.result === "200"){
                 var json = JSON.parse(data.message);
@@ -146,7 +194,7 @@ function nextPage() {
         type:"post",
         async:true,
         contentType:"application/json;charset=utf-8",
-        data:JSON.stringify({"card":card,"id":id,"channel":channel,"status":status,"deadline":deadline,"pageNum":nextPageNum,"pageSize":pageSize}),
+        data:JSON.stringify({"card":card,"id":id,"channel":channel,"status":"N","deadline":deadline,"pageNum":nextPageNum,"pageSize":pageSize}),
         success:function(data){
             if(data.result === "200"){
                 var json = JSON.parse(data.message);
