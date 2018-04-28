@@ -1,6 +1,7 @@
 package cn.zl.controller;
 
 import cn.zl.domain.Log;
+import cn.zl.domain.Notice;
 import cn.zl.domain.Staff;
 import cn.zl.pojo.QueryLogBean;
 import cn.zl.pojo.QueryStaffBean;
@@ -63,6 +64,14 @@ public class ManageController {
     @RequestMapping("logManage")
     public ModelAndView logManage(){
         return new ModelAndView("manage/logs");
+    }
+
+    /**
+     * 跳转至公告管理页面
+     */
+    @RequestMapping("noticeManage")
+    public ModelAndView noticeManage(){
+        return new ModelAndView("manage/notices");
     }
 
     /**
@@ -138,6 +147,19 @@ public class ManageController {
     }
 
     /**
+     * 查询公告信息
+     */
+    @RequestMapping("queryNotice")
+    @ResponseBody
+    public ResultBean queryNotice(){
+        ResultBean resultBean = new ResultBean();
+        List<Notice> noticeList = manageService.queryNotice();
+        resultBean.setResult(Constants.RESULT_SUCCESS);
+        resultBean.setMessage(JSON.toJSONString(noticeList));
+        return resultBean;
+    }
+
+    /**
      * 冻结用户
      */
     @RequestMapping("freezeStaff.do")
@@ -197,6 +219,34 @@ public class ManageController {
         } catch (Exception e) {
             log.info("配置文件读取异常");
         }
+        resultBean.setResult(Constants.RESULT_SUCCESS);
+        return resultBean;
+    }
+
+    /**
+     * 新增公告信息
+     */
+    @RequestMapping("addNotice.do")
+    @ResponseBody
+    public ResultBean addNotice(@RequestBody Notice notice){
+        MDC.put("username", ((Staff) SessionUtil.getStaffSession()).getUsername());
+        ResultBean resultBean = new ResultBean();
+        manageService.addNotice(notice);
+        log.info("新增公告信息{"+notice.getType()+"}内容{"+notice.getContent()+"}");
+        resultBean.setResult(Constants.RESULT_SUCCESS);
+        return resultBean;
+    }
+
+    /**
+     * 删除公告信息
+     */
+    @RequestMapping("delNotice.do")
+    @ResponseBody
+    public ResultBean delNotice(int id){
+        MDC.put("username", ((Staff) SessionUtil.getStaffSession()).getUsername());
+        ResultBean resultBean = new ResultBean();
+        Notice notice = manageService.delNotice(id);
+        log.info("删除公告信息{"+notice.getType()+"}内容{"+notice.getContent()+"}");
         resultBean.setResult(Constants.RESULT_SUCCESS);
         return resultBean;
     }

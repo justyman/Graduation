@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/manage/staffs.css">
+</head>
+<body style="background-color: rgba(240,243,244,0.75); ">
+<!-- 导航栏 -->
+<div>
+    <h3 style="color: rgba(86,86,86,0.75); font-family: FontAwesome">您当前的位置：系统管理 -> 公告管理</h3>
+</div>
+<hr style="height:1px;border:none;border-top:1px solid #cccccc;"/>
+
+<!-- 表格 -->
+<h1 style="text-align: center">公&nbsp;&nbsp;告</h1>
+<table class="table table-hover table-bordered" id="queryTable" style="border:1px solid #cccccc;background-color: #eeeeee;display: none">
+    <thead>
+    <tr>
+        <th width="10%">紧急程度</th>
+        <th width="70%">公告内容</th>
+        <th width="10%">删除</th>
+    </tr>
+    </thead>
+    <tbody id="queryResult">
+    </tbody>
+</table>
+
+<!-- 添加公告 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">添加公告</h4>
+            </div>
+            <div class="modal-body">
+                <select id="type">
+                    <option value="一般">一般</option>
+                    <option value="紧急">紧急</option>
+                </select>
+                <input type="text" id="content" placeholder="请输入公告内容" style="width: 500px;">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="padding-top: 0">关闭</button>
+                <button type="button" class="btn btn-success" style="padding-top: 0" onclick="addNotice()">提交更改</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+<!-- JS -->
+<script src="./js/jquery.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/manage/notices.js"></script>

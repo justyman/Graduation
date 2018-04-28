@@ -13,6 +13,19 @@
     <link rel="stylesheet" href="./css/simple-line-icons.css"/>
     <link rel="stylesheet" href="./css/animate.min.css"/>
     <link rel="stylesheet" href="./css/style.css"/>
+    <link rel="stylesheet" href="./css/normalize.css" />
+    <link rel="stylesheet" href="./css/default.css">
+    <link rel="stylesheet" href="./css/liMarquee.css">
+    <style>
+        .str_wrap{
+            padding-left: 3em;
+            padding-right: 3em;
+            background-color: rgba(240,243,244,0.75);
+            height: 1.6em;
+            line-height: 1.6em;
+            font-size: 1.2em;
+        }
+    </style>
 </head>
 
 <body>
@@ -75,7 +88,7 @@
                     <ul class="nav nav-list tree">
                         <li><a onclick="staffManage()">用户管理</a></li>
                         <li><a onclick="positionManage()">角色管理</a></li>
-                        <li><a>公告管理</a></li>
+                        <li><a onclick="noticeManage()">公告管理</a></li>
                         <li><a onclick="logManage()">日志管理</a></li>
                     </ul>
                 </li>
@@ -111,8 +124,13 @@
     <!-- end: Left Menu -->
 </div>
 
+<!-- 跑马灯 -->
+<div class="str1 str_wrap" id="marqueeMsg" style="margin-top: 55px">
+    <span>公告：&nbsp;&nbsp;</span>
+</div>
+
 <!-- 主页面 -->
-<iframe style="margin-left: 240px; margin-top: 60px; width: 85%;" frameborder="0" scrolling="auto" id="mainFrame" src="">
+<iframe style="margin-left: 240px; width: 85%;" frameborder="0" scrolling="auto" id="mainFrame" src="">
 </iframe>
 </body>
 </html>
@@ -129,3 +147,4 @@
 <script src="./js/moment.min.js"></script>
 <script src="./js/main.js"></script>
 <script src="./js/user.js"></script>
+<script src="./js/jquery.liMarquee.js"></script>

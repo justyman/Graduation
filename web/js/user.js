@@ -2,6 +2,26 @@
  * 页面初始化加载用户信息
  */
 $(document).ready(function(){
+    // 跑马灯
+    $.ajax({
+        url:"queryNotice.do",
+        type:"post",
+        async:true,
+        contentType:"application/json;charset=utf-8",
+        success:function(data){
+            var list = JSON.parse(data.message);
+            var content = "";
+            for(var i = 0; i < list.length; i++){
+                if(list[i].type === "一般"){
+                    content = "<span>"+"["+list[i].type+"] "+list[i].content+"</span>";
+                }else{
+                    content = "<span style='color: #f50a15'>"+"["+list[i].type+"] "+list[i].content+"</span>";
+                }
+                $(".str_move").append(content);
+            }
+        }
+    });
+    $("#marqueeMsg").liMarquee();
     // 初始化frame
     var ifm= document.getElementById("mainFrame");
     ifm.height=$(document).height();
@@ -84,5 +104,13 @@ function positionManage() {
  */
 function logManage() {
     var url = location.href.replace("user", "logManage");
+    $("#mainFrame").attr("src", url);
+}
+
+/**
+ * 跳转至公告管理页面
+ */
+function noticeManage() {
+    var url = location.href.replace("user", "noticeManage");
     $("#mainFrame").attr("src", url);
 }

@@ -1,11 +1,9 @@
 package cn.zl.service.impl;
 
 import cn.zl.dao.LogMapper;
+import cn.zl.dao.NoticeMapper;
 import cn.zl.dao.StaffMapper;
-import cn.zl.domain.Log;
-import cn.zl.domain.LogExample;
-import cn.zl.domain.Staff;
-import cn.zl.domain.StaffExample;
+import cn.zl.domain.*;
 import cn.zl.service.ManageService;
 import cn.zl.utils.Constants;
 import cn.zl.utils.StringUtil;
@@ -33,6 +31,9 @@ public class ManageServiceImpl implements ManageService{
 
     @Resource
     private LogMapper logMapper;
+
+    @Resource
+    private NoticeMapper noticeMapper;
 
     public List<Staff> queryStaffs(Staff staff, PageInfo pageInfo) {
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
@@ -76,6 +77,11 @@ public class ManageServiceImpl implements ManageService{
         return logList != null && logList.size() > 0 ? logList : null;
     }
 
+    public List<Notice> queryNotice() {
+        List<Notice> noticeList = noticeMapper.selectByExample(new NoticeExample());
+        return noticeList != null && noticeList.size() > 0 ? noticeList : null;
+    }
+
     public void freezeStaff(String username) throws Exception {
         Staff staff = staffMapper.selectByPrimaryKey(username);
         if(staff == null){
@@ -107,5 +113,15 @@ public class ManageServiceImpl implements ManageService{
         }
         staff.setPosition(position);
         staffMapper.updateByPrimaryKey(staff);
+    }
+
+    public void addNotice(Notice notice) {
+        noticeMapper.insert(notice);
+    }
+
+    public Notice delNotice(int id) {
+        Notice notice = noticeMapper.selectByPrimaryKey(id);
+        noticeMapper.deleteByPrimaryKey(id);
+        return notice;
     }
 }

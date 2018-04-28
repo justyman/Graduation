@@ -273,3 +273,12 @@ ALTER TABLE `credit_card`.`db_card`
   CHANGE `bill` `bill` DATETIME NOT NULL COMMENT '账单日';
 ALTER TABLE `credit_card`.`db_card`
   CHANGE `bill` `bill` INT(2) DEFAULT 5 NOT NULL COMMENT '账单日';
+
+/* 公告表 */
+CREATE TABLE `credit_card`.`db_notice`(
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '公告id',
+  `type` VARCHAR(20) NOT NULL DEFAULT '一般' COMMENT '紧急程度',
+  `content` VARCHAR(255) NOT NULL COMMENT '公告内容',
+  PRIMARY KEY (`id`),
+  INDEX (`type`)
+);

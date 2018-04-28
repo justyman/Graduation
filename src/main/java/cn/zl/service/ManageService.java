@@ -1,6 +1,7 @@
 package cn.zl.service;
 
 import cn.zl.domain.Log;
+import cn.zl.domain.Notice;
 import cn.zl.domain.Staff;
 import com.github.pagehelper.PageInfo;
 
@@ -25,6 +26,11 @@ public interface ManageService {
     List<Log> queryLogs(Log logs, PageInfo pageInfo);
 
     /**
+     * 查询公告信息
+     */
+    List<Notice> queryNotice();
+
+    /**
      * 冻结指定用户
      */
     void freezeStaff(String username) throws Exception;
@@ -38,4 +44,14 @@ public interface ManageService {
      * 修改指定用户职位
      */
     void changePosition(String username, int position) throws Exception;
+
+    /**
+     * 新增公告信息
+     */
+    void addNotice(Notice notice);
+
+    /**
+     * 删除公告信息
+     */
+    Notice delNotice(int id);
 }
