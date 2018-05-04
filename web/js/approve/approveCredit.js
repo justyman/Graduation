@@ -24,12 +24,11 @@ $(document).ready(function () {
                         var trNode = $("<tr/>");
                         addTd(trNode, list[i].card);
                         addTd(trNode, list[i].name);
-                        addTd(trNode, list[i].sex);
+                        addTd(trNode, list[i].gender);
                         addTd(trNode, list[i].phone);
                         addTd(trNode, list[i].id);
                         addTd(trNode, list[i].level);
                         addTd(trNode, list[i].credit);
-                        addTd(trNode, "credit" + list[i].id);
                         $("#queryResult").append(trNode);
                     }
                     $("#queryTable").css("display", "");
@@ -93,12 +92,11 @@ function query() {
                         var trNode = $("<tr/>");
                         addTd(trNode, list[i].card);
                         addTd(trNode, list[i].name);
-                        addTd(trNode, list[i].sex);
+                        addTd(trNode, list[i].gender);
                         addTd(trNode, list[i].phone);
                         addTd(trNode, list[i].id);
                         addTd(trNode, list[i].level);
                         addTd(trNode, list[i].credit);
-                        addTd(trNode, "credit" + list[i].id);
                         $("#queryResult").append(trNode);
                     }
                     $("#queryTable").css("display", "");
@@ -154,12 +152,11 @@ function lastPage() {
                         var trNode = $("<tr/>");
                         addTd(trNode, list[i].card);
                         addTd(trNode, list[i].name);
-                        addTd(trNode, list[i].sex);
+                        addTd(trNode, list[i].gender);
                         addTd(trNode, list[i].phone);
                         addTd(trNode, list[i].id);
                         addTd(trNode, list[i].level);
                         addTd(trNode, list[i].credit);
-                        addTd(trNode, "credit" + list[i].id);
                         $("#queryResult").append(trNode);
                     }
                     // 分页结果
@@ -206,12 +203,11 @@ function nextPage() {
                         var trNode = $("<tr/>");
                         addTd(trNode, list[i].card);
                         addTd(trNode, list[i].name);
-                        addTd(trNode, list[i].sex);
+                        addTd(trNode, list[i].gender);
                         addTd(trNode, list[i].phone);
                         addTd(trNode, list[i].id);
                         addTd(trNode, list[i].level);
                         addTd(trNode, list[i].credit);
-                        addTd(trNode, "credit" + list[i].id);
                         $("#queryResult").append(trNode);
                     }
                     // 分页结果
@@ -243,15 +239,6 @@ function addTd(trNode, result) {
     }
     if(result.length === 16 && result.substring(0,4) === "6258"){
         trNode.append("<td><a href='approveQueryDetail.do?card=" + result + "' target='_blank'>" + result + "</a></td>");
-    }else if(result.length > 6 && result.substring(0,6) === "credit"){
-        var content = "<td id='select\"+result.substring(6, result.length)+\"'><select><option value=''>请选择</option>";
-        for(var i = 1; i < 101; i++){
-            content = content + "<option onclick='approve(\""+result.substring(6, result.length)+"-"+i+"\")'>i</option>";
-        }
-            "                   <option onclick='approve(\""+result.substring(6, result.length)+"\")'>审批人员</option>" +
-            "                   <option onclick='business(\""+result.substring(6, result.length)+"\")'>业务人员</option>" +
-            "                   <option onclick='manage(\""+result.substring(6, result.length)+"\")'>管理员</option>" +
-            "              </select></td>");
     }else{
         trNode.append("<td>" + result + "</td>");
     }

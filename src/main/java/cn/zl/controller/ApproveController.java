@@ -48,7 +48,7 @@ public class ApproveController {
     /**
      * 跳转至信用评估页面
      */
-    @RequestMapping("approveCredit")
+    @RequestMapping("approveCustomer")
     public ModelAndView credit(){
         return new ModelAndView("approve/approveCredit");
     }
